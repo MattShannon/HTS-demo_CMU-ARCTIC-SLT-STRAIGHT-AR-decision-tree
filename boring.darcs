@@ -14,3 +14,8 @@
 (^|/)data/raw($|/)
 (^|/)data/scp($|/)
 (^|/)data/utts($|/)
+^data/labels/(mono|full)(|\.mlf)$
+^log$
+^log.make$
+^scripts/Config.pm$
+^scripts/gen_wave.pl$
