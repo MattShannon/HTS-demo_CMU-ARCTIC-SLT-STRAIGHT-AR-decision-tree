@@ -81,21 +81,29 @@ for($i=1;$i<=$nwin;$i++) {
       die "Size of window must be 2*n + 1 and float"; 
    }
 
-   $nlr = ($size-1)/2; 
+   $nlr = ($size-1)/2;
+   $nlrLeft = -($size-1)/2;
+   $nlrRight = ($size-1)/2;
+   while ($win[$nlrRight+$nlr+1] == $ignorevalue) {
+      $nlrRight--;
+   }
+   while ($win[$nlrLeft+$nlr+1] == $ignorevalue) {
+      $nlrLeft++;
+   }
 
    # calcurate $i-th coefficients
    for ($t=0; $t<$T; $t++) {
       for ($j=0; $j<$dim; $j++) {
          # check space boundary (ex. voiced/unvoiced boundary)
          $boundary = 0;
-         for ($k=-$nlr; $k<=$nlr; $k++) {      
+         for ($k=$nlrLeft; $k<=$nlrRight; $k++) {
             if ($t+$k>=0 && $t+$k<$T && $original[($t+$k)*$dim+$j] == $ignorevalue) {
                $boundary = 1;
             }
          }
          if ($boundary==0) {
             $transformed[$t*$nwin*$dim+$dim*($i-1)+$j] = 0.0;
-            for ($k=-$nlr; $k<=$nlr; $k++) {
+            for ($k=$nlrLeft; $k<=$nlrRight; $k++) {
                if ($t+$k>=0 && $t+$k<$T) { 
                   $transformed[$t*$nwin*$dim+$dim*($i-1)+$j] += $win[$k+$nlr+1]*$original[($t+$k)*$dim+$j];
                }
