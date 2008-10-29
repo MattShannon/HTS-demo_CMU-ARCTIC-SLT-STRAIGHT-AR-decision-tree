@@ -1,11 +1,102 @@
+2008-07-10 14:57  Heiga Zen
+
+	* scripts/Training.pl (STRAIGHT): Fix a bug reported by Keiichi
+	  Tokuda: The use of dfs command was invalid.
+
+2008-07-10 14:27  Heiga Zen
+
+	* configure, configure.ac, scripts/Config.pm.in,
+	  scripts/Training.pl (STRAIGHT): Use dfs.
+
+2008-07-10 12:55  Heiga Zen
+
+	* INSTALL, configure, configure.ac (STRAIGHT): Use minimum
+	  STRAIGHT.
+
+2008-07-09 22:28  Heiga Zen
+
+	* configure, configure.ac: Automatically set FREQWARP to mel-scale
+	  for 22.05 kHz sampling.
+
+2008-07-02 15:22  Heiga Zen
+
+	* scripts/: Training.pl (STRAIGHT), Training.pl: Modification
+	  suggested by Jong-Jin Kim: copy gv-*.pdf if $useGV==1.
+
+2008-06-26 13:45  Heiga Zen
+
+	* scripts/: Training.pl (STRAIGHT), Training.pl: Fix bug reported
+	  by Xuchen Yao: hts_engine API-0.99 doesn't support linear gain.
+	  hts_engine-API-1.0 can switch linear/log gain via -l option.
+
+2008-06-25 22:38  Heiga Zen
+
+	* configure, configure.ac (STRAIGHT), configure, configure.ac:
+	  Automatically set FREQWARP to mel-scale for given SAMPFREQ.
+
+2008-06-25 15:10  Heiga Zen
+
+	* data/questions/: questions_qst001.hed (STRAIGHT),
+	  questions_qst001.hed: Fix a bug reported by Nicholas Volk: '*|'
+	  are missing in C-Syl_Vowel questions.
+
+2008-06-24 18:19  Heiga Zen
+
+	* scripts/: Training.pl (STRAIGHT), Training.pl: Tie stream
+	  weights.
+
+2008-06-19 15:00  Heiga Zen
+
+	* INSTALL (STRAIGHT): Update INSTALL.
+
+2008-06-19 13:16  Heiga Zen
+
+	* configure, configure.ac, data/Makefile.in (STRAIGHT): Add NaN
+	  check to MGC and F0 extraction.
+
 2008-06-19 13:08  Heiga Zen
 
 	* data/Makefile.in, configure, configure.ac: Add NaN check to MGC
 	  and F0 extraction.
 
+2008-06-18 12:47  Heiga Zen
+
+	* scripts/Config.pm.in (STRAIGHT): Turn off hts_engine parts.
+
+2008-06-18 11:28  Heiga Zen
+
+	* scripts/Config.pm.in (STRAIGHT): Fix spacing.
+
+2008-06-17 15:52  Heiga Zen
+
+	* data/Makefile.in (STRAIGHT): Output log message while converting
+	  raw to wav.
+
+2008-06-17 15:29  Heiga Zen
+
+	* data/Makefile.in (STRAIGHT): Remove BC.
+
+2008-06-17 15:27  Heiga Zen
+
+	* data/Makefile.in (STRAIGHT): Add clean commands for STRAIGHT
+	  parameters.  Fix tabbing and spacing.
+
+2008-06-17 14:54  Heiga Zen
+
+	* configure, configure.ac (STRAIGHT): Update version number.  Fix
+	  minor bug.
+
 2008-06-17 14:53  Heiga Zen
 
 	* configure, configure.ac: Update version number and copyright.
+
+2008-06-17 13:57  Heiga Zen
+
+	* scripts/.cvsignore, scripts/Config.pm.in, scripts/Training.pl,
+	  data/scripts/freq2lfreq.pl, data/win/bap.win1, data/win/bap.win2,
+	  data/win/bap.win3, .cvsignore, INSTALL, configure, configure.ac,
+	  data/.cvsignore, data/Makefile.in, data/README (STRAIGHT): Branch
+	  STRAIGHT version of HTS-demo_CMU-ARCTIC-SLT.
 
 2008-06-13 14:17  Heiga Zen
 

@@ -1,13 +1,17 @@
 Directory structure
 
+ap: Aperiodicity components extracted by STRAIGHT (ascii).
+
 cmp: Training data in HTK data format (natural endian). 
      You can see these files as HList -C hlist.conf cmp/cmu_us_arctic_slt_a0001.cmp.
+
+f0: Fundamental frequency values extracted by STRAIGHT (ascii).
 
 gv: GV probability density functions (4-byte float, natural endian).
 
 labels: Context-independent and -dependent labels in HTK label format (ascii).
 
-lf0: Log fundamental frequency values extracted by getf0.tcl (4-byte float, natural endian).
+lf0: Log fundamental frequency values converted from F0 files in f0 directory (4-byte float, natural endian).
 
 lists: Context-independent and -dependent model lists (ascii).
 
@@ -20,6 +24,8 @@ raw: 16kHz raw audio (2-byte short, little endian).
 scp: Data path files (ascii).
 
 scripts: shell, perl, and tcl scripts (ascii).
+
+sp: Spectra extracted by STRAIGHT. 
 
 utts: Utterance information files in Festival utt format (ascii).
 

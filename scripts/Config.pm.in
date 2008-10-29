@@ -51,65 +51,79 @@ $qnum = '@QNUM@';
 $ver  = '@VER@';
 
 @SET        = ('cmp','dur');
-@cmp        = ('mgc','lf0');
+@cmp        = ('mgc','lf0','bap');
 @dur        = ('dur');
 $ref{'cmp'} = \@cmp;
 $ref{'dur'} = \@dur;
 
 %vflr = ('mgc' => '0.01', # variance floors
          'lf0' => '0.01',
+         'bap' => '0.01',
          'dur' => '0.01');
 
 %thr  = ('mgc' => '000',  # minimum state occupancy 
          'lf0' => '000',
+         'bap' => '000',
          'dur' => '000');
 
 %mdlf = ('mgc' => '1.0',  # tree size control param. for MDL
          'lf0' => '1.0',
+         'bap' => '1.0',
          'dur' => '1.0');
 
 %mocc = ('mgc' => '10.0',  # minimum occupancy counts
          'lf0' => '10.0',
+         'bap' => '10.0',
          'dur' => ' 5.0');
 
 %gam  = ('mgc' => '000',  # stats load threshold
          'lf0' => '000',
+         'bap' => '000',
          'dur' => '000');
 
 %t2s  = ('mgc' => 'cmp',  # feature type to mmf conversion
          'lf0' => 'cmp',
+         'bap' => 'cmp',
          'dur' => 'dur');
 
 %strb = ('mgc' => '1',  # stream start
          'lf0' => '2',
+         'bap' => '@BAPSTREN@',
          'dur' => '1');
 
 %stre = ('mgc' => '1',  # stream end
          'lf0' => '@F0STREN@',
+         'bap' => '@BAPSTREN@',
          'dur' => '@NSTATE@');
 
 %msdi = ('mgc' => '0',  # msd information
          'lf0' => '1',
+         'bap' => '0',
          'dur' => '0');
 
 %strw = ('mgc' => '1.0',  # stream weights
          'lf0' => '1.0',
+         'bap' => '0.0',
          'dur' => '1.0');
 
 %ordr = ('mgc' => '@MGCVSIZE@',  # feature order  
          'lf0' => '1',
+         'bap' => '5',
          'dur' => '@NSTATE@');
 
 %nwin = ('mgc' => '@NMGCWIN@',  # number of windows
          'lf0' => '@NLF0WIN@',
+         'bap' => '@NBAPWIN@',
          'dur' => '0');
 
 %nblk = ('mgc' => '@NMGCTRANSBLK@',   # number of blocks for transforms
          'lf0' => '@NLF0TRANSBLK@',
+         'bap' => '@NBAPTRANSBLK@',
          'dur' => '1');
 
 %band = ('mgc' => '@MGCBANDWIDTH@',   # band width for transforms
          'lf0' => '@LF0BANDWIDTH@',
+         'bap' => '@BAPBANDWIDTH@',
          'dur' => '0');
 
 #%mdcp = ('dy' => 'd',   # model copy
@@ -128,6 +142,7 @@ $fw = @FREQWARP@;    # frequency warping
 $gm = @GAMMA@;   # pole/zero representation weight
 $ul = @MGCLSP@;   # use MGC-LSPs instead of MGC coefficients
 $lg = @LNGAIN@;   # use log gain instead of linear gain
+$bs = @BYTESWAP@;   # 1: big endian, 0: little endian
 $fr = $fs/$sr; # frame period (sec)
 
 # speech synthesis
@@ -174,23 +189,28 @@ $HMGENS = '@HMGENS@';
 $ENGINE = '@ENGINE@';
 
 # SPTK commands
-$X2X      = '@X2X@';
-$FREQT    = '@FREQT@';
-$C2ACR    = '@C2ACR@';
-$VOPR     = '@VOPR@';
-$MC2B     = '@MC2B@';
-$SOPR     = '@SOPR@';
-$B2MC     = '@B2MC@';
-$EXCITE   = '@EXCITE@';
-$LSP2LPC  = '@LSP2LPC@';
-$MGC2MGC  = '@MGC2MGC@';
-$MGLSADF  = '@MGLSADF@';
-$MERGE    = '@MERGE@';
-$BCP      = '@BCP@';
-$LSPCHECK = '@LSPCHECK@';
+$X2X         = '@X2X@';
+$FREQT       = '@FREQT@';
+$C2ACR       = '@C2ACR@';
+$VOPR        = '@VOPR@';
+$MC2B        = '@MC2B@';
+$SOPR        = '@SOPR@';
+$B2MC        = '@B2MC@';
+$LSP2LPC     = '@LSP2LPC@';
+$MGC2MGC     = '@MGC2MGC@';
+$MERGE       = '@MERGE@';
+$BCP         = '@BCP@';
+$LSPCHECK    = '@LSPCHECK@';
+$MGC2SP      = '@MGC2SP@';
+$INTERPOLATE = '@INTERPOLATE@';
+$DFS         = '@DFS@';
 
 # SoX (to add RIFF header)
 $SOX = '@SOX@';
+
+# MATLAB & STRAIGHT
+$MATLAB   = '@MATLAB@';
+$STRAIGHT = '@STRAIGHT@';
 
 
 # Switch ================================
@@ -210,8 +230,8 @@ $ERST4 = 1;  # embedded reestimation (re-clustered)
 $MKUN1 = 1;  # making unseen models (1mix)
 $PGEN1 = 1;  # generating speech parameter sequences (1mix)
 $WGEN1 = 1;  # synthesizing waveforms (1mix)
-$CONVM = 1;  # converting mmfs to the hts_engine file format
-$ENGIN = 1;  # synthesizing waveforms using hts_engine
+$CONVM = 0;  # converting mmfs to the hts_engine file format
+$ENGIN = 0;  # synthesizing waveforms using hts_engine
 $UPMIX = 1;  # increasing the number of mixture components (1mix -> 2mix)
 $SEMIT = 1;  # semi-tied covariance matrices
 $MKUNS = 1;  # making unseen models (stc)

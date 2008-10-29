@@ -277,7 +277,7 @@ PACKAGE_VERSION='2.1'
 PACKAGE_STRING='HTS-demo_CMU-ARCTIC-SLT 2.1'
 PACKAGE_BUGREPORT='hts-users@sp.nitech.ac.jp'
 
-ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS AWK PERL TCLSH BC WC DUMPFEATS SWAB X2X FRAME WINDOW MGCEP LPC2LSP NAN NRAND VSTAT STEP SOPR VOPR FREQT C2ACR MC2B B2MC MERGE BCP EXCITE LSP2LPC LSPCHECK MGC2MGC MGLSADF SOX HMGENS HCOMPV HINIT HREST HEREST HHED ENGINE CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT BYTESWAP SPEAKER DATASET VER QNUM PWD FRAMELEN FRAMESHIFT WINDOWTYPE NORMALIZE FFTLEN FREQWARP GAMMA MGCLSP MGCORDER LNGAIN LOWERF0 UPPERF0 NOISEMASK PSTFILTER IMPLEN SAMPFREQ MGCVSIZE NMGCWIN NLF0WIN F0STREN NSTATE NITER WFLOOR MAXDEV MINDUR NMGCTRANSBLK NLF0TRANSBLK MGCBANDWIDTH LF0BANDWIDTH MAXEMITER EMEPSILON USEGV MAXGVITER GVEPSILON MINEUCNORM STEPINIT STEPINC STEPDEC HMMWEIGHT GVWEIGHT OPTKIND LIBOBJS LTLIBOBJS'
+ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS AWK PERL BC DUMPFEATS SWAB X2X MGCEP LPC2LSP VSTAT SOPR VOPR FREQT C2ACR MC2B B2MC MERGE AVERAGE BCP LSP2LPC LSPCHECK MGC2MGC MGC2SP INTERPOLATE DFS NAN SOX MATLAB STRAIGHT HMGENS HCOMPV HINIT HREST HEREST HHED ENGINE CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT BYTESWAP SPEAKER DATASET VER QNUM PWD FRAMESHIFT FREQWARP GAMMA MGCLSP MGCORDER LNGAIN LOWERF0 UPPERF0 PSTFILTER IMPLEN SAMPFREQ MGCVSIZE NMGCWIN NLF0WIN NBAPWIN F0STREN BAPSTREN NSTATE NITER WFLOOR MAXDEV MINDUR NMGCTRANSBLK NLF0TRANSBLK NBAPTRANSBLK MGCBANDWIDTH LF0BANDWIDTH BAPBANDWIDTH MAXEMITER EMEPSILON USEGV MAXGVITER GVEPSILON MINEUCNORM STEPINIT STEPINC STEPDEC HMMWEIGHT GVWEIGHT OPTKIND LIBOBJS LTLIBOBJS'
 ac_subst_files=''
 
 # Initialize some variables set by options.
@@ -750,26 +750,10 @@ ac_env_QNUM_set=${QNUM+set}
 ac_env_QNUM_value=$QNUM
 ac_cv_env_QNUM_set=${QNUM+set}
 ac_cv_env_QNUM_value=$QNUM
-ac_env_FRAMELEN_set=${FRAMELEN+set}
-ac_env_FRAMELEN_value=$FRAMELEN
-ac_cv_env_FRAMELEN_set=${FRAMELEN+set}
-ac_cv_env_FRAMELEN_value=$FRAMELEN
 ac_env_FRAMESHIFT_set=${FRAMESHIFT+set}
 ac_env_FRAMESHIFT_value=$FRAMESHIFT
 ac_cv_env_FRAMESHIFT_set=${FRAMESHIFT+set}
 ac_cv_env_FRAMESHIFT_value=$FRAMESHIFT
-ac_env_WINDOWTYPE_set=${WINDOWTYPE+set}
-ac_env_WINDOWTYPE_value=$WINDOWTYPE
-ac_cv_env_WINDOWTYPE_set=${WINDOWTYPE+set}
-ac_cv_env_WINDOWTYPE_value=$WINDOWTYPE
-ac_env_NORMALIZE_set=${NORMALIZE+set}
-ac_env_NORMALIZE_value=$NORMALIZE
-ac_cv_env_NORMALIZE_set=${NORMALIZE+set}
-ac_cv_env_NORMALIZE_value=$NORMALIZE
-ac_env_FFTLEN_set=${FFTLEN+set}
-ac_env_FFTLEN_value=$FFTLEN
-ac_cv_env_FFTLEN_set=${FFTLEN+set}
-ac_cv_env_FFTLEN_value=$FFTLEN
 ac_env_FREQWARP_set=${FREQWARP+set}
 ac_env_FREQWARP_value=$FREQWARP
 ac_cv_env_FREQWARP_set=${FREQWARP+set}
@@ -798,10 +782,6 @@ ac_env_UPPERF0_set=${UPPERF0+set}
 ac_env_UPPERF0_value=$UPPERF0
 ac_cv_env_UPPERF0_set=${UPPERF0+set}
 ac_cv_env_UPPERF0_value=$UPPERF0
-ac_env_NOISEMASK_set=${NOISEMASK+set}
-ac_env_NOISEMASK_value=$NOISEMASK
-ac_cv_env_NOISEMASK_set=${NOISEMASK+set}
-ac_cv_env_NOISEMASK_value=$NOISEMASK
 ac_env_PSTFILTER_set=${PSTFILTER+set}
 ac_env_PSTFILTER_value=$PSTFILTER
 ac_cv_env_PSTFILTER_set=${PSTFILTER+set}
@@ -822,6 +802,10 @@ ac_env_NLF0WIN_set=${NLF0WIN+set}
 ac_env_NLF0WIN_value=$NLF0WIN
 ac_cv_env_NLF0WIN_set=${NLF0WIN+set}
 ac_cv_env_NLF0WIN_value=$NLF0WIN
+ac_env_NBAPWIN_set=${NBAPWIN+set}
+ac_env_NBAPWIN_value=$NBAPWIN
+ac_cv_env_NBAPWIN_set=${NBAPWIN+set}
+ac_cv_env_NBAPWIN_value=$NBAPWIN
 ac_env_NSTATE_set=${NSTATE+set}
 ac_env_NSTATE_value=$NSTATE
 ac_cv_env_NSTATE_set=${NSTATE+set}
@@ -850,6 +834,10 @@ ac_env_NLF0TRANSBLK_set=${NLF0TRANSBLK+set}
 ac_env_NLF0TRANSBLK_value=$NLF0TRANSBLK
 ac_cv_env_NLF0TRANSBLK_set=${NLF0TRANSBLK+set}
 ac_cv_env_NLF0TRANSBLK_value=$NLF0TRANSBLK
+ac_env_NBAPTRANSBLK_set=${NBAPTRANSBLK+set}
+ac_env_NBAPTRANSBLK_value=$NBAPTRANSBLK
+ac_cv_env_NBAPTRANSBLK_set=${NBAPTRANSBLK+set}
+ac_cv_env_NBAPTRANSBLK_value=$NBAPTRANSBLK
 ac_env_MGCBANDWIDTH_set=${MGCBANDWIDTH+set}
 ac_env_MGCBANDWIDTH_value=$MGCBANDWIDTH
 ac_cv_env_MGCBANDWIDTH_set=${MGCBANDWIDTH+set}
@@ -978,12 +966,13 @@ if test -n "$ac_init_help"; then
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
-  --with-tcl-search-path  specify the additional tclsh (with snack) search
-                          path
   --with-fest-search-path specify the additional festival search path
   --with-sptk-search-path specify the additional SPTK binary search path
   --with-sox-search-path  specify the additional sox (Sound eXchange) search
                           path
+  --with-matlab-search-path
+                          specify the additional MATLAB binary search path
+  --with-straight-path    specify the STRAIGHT MATLAB code path
   --with-hts-search-path  specify the additional HTS binary search path
   --with-hts-engine-search-path
                           specify the additional hts_engine binary search path
@@ -999,28 +988,22 @@ Some influential environment variables:
   DATASET     dataset (default=cmu_us_arctic)
   VER         version number of this setting (default=1)
   QNUM        question set number (default='001')
-  FRAMELEN    Frame length in point (default=400)
   FRAMESHIFT  Frame shift in point (default=80)
-  WINDOWTYPE  Window type -> 0: Blackman 1: Hamming 2: Hanning (default=1)
-  NORMALIZE   Normalization -> 0: none 1: by power 2: by magnitude (default=1)
-  FFTLEN      FFT length in point (default=512)
   FREQWARP    Frequency warping factor (default=0.42)
   GAMMA       Pole/Zero weight factor (0: mel-cepstral analysis 1: LPC
               analysis 2,3,...,N: mel-generalized cepstral (MGC) analysis)
               (default=0)
   MGCLSP      Use MGC-LSPs instead of MGC coefficients (default=0)
-  MGCORDER    Order of MGC analysis (default=24 for cepstral form, default=12
-              for LSP form)
+  MGCORDER    Order of MGC analysis (default=39)
   LNGAIN      Use logarithmic gain instead of linear gain (default=0)
   LOWERF0     Lower limit for F0 extraction in Hz (default=80)
   UPPERF0     Upper limit for F0 extraction in Hz (default=350)
-  NOISEMASK   Standard deviation of white noise to mask noise in f0 extraction
-              (default=50)
   PSTFILTER   Postfiltering factor (default=1.4)
   IMPLEN      Length of impulse response (default=4096)
   SAMPFREQ    Sampling frequency in Hz (default=16000)
   NMGCWIN     number of delta windows for MGC coefficients (default=3)
   NLF0WIN     number of delta windows for log F0 values (default=3)
+  NBAPWIN     number of delta windows for band aperiodicity values (default=3)
   NSTATE      number of HMM states (default=5)
   NITER       number of iterations of embedded training (default=5)
   WFLOOR      mixture weight flooring scale (default=3)
@@ -1030,6 +1013,8 @@ Some influential environment variables:
               number of blocks for MGC transforms (default=3)
   NLF0TRANSBLK
               number of blocks for log F0 transforms (default=1)
+  NBAPTRANSBLK
+              number of blocks for band aperiodicity transforms (default=5)
   MGCBANDWIDTH
               band width for MGC transforms (default=24 for cepstral form,
               derault=2 for LSP form)
@@ -1604,72 +1589,6 @@ fi
 
 
 
-# tclsh
-# tclsh search path
-
-# Check whether --with-tcl-search-path or --without-tcl-search-path was given.
-if test "${with_tcl_search_path+set}" = set; then
-  withval="$with_tcl_search_path"
-  tcl_search_path=$withval
-fi;
-
-# Extract the first word of "tclsh", so it can be a program name with args.
-set dummy tclsh; ac_word=$2
-echo "$as_me:$LINENO: checking for $ac_word" >&5
-echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
-if test "${ac_cv_path_TCLSH+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  case $TCLSH in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_TCLSH="$TCLSH" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-as_dummy="${tcl_search_path}:$PATH"
-for as_dir in $as_dummy
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_TCLSH="$as_dir/$ac_word$ac_exec_ext"
-    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-
-  test -z "$ac_cv_path_TCLSH" && ac_cv_path_TCLSH=":"
-  ;;
-esac
-fi
-TCLSH=$ac_cv_path_TCLSH
-
-if test -n "$TCLSH"; then
-  echo "$as_me:$LINENO: result: $TCLSH" >&5
-echo "${ECHO_T}$TCLSH" >&6
-else
-  echo "$as_me:$LINENO: result: no" >&5
-echo "${ECHO_T}no" >&6
-fi
-
-if test ! -f "$TCLSH"; then
-	{ { echo "$as_me:$LINENO: error: Can't find tclsh" >&5
-echo "$as_me: error: Can't find tclsh" >&2;}
-   { (exit 1); exit 1; }; }
-fi
-
-# check this tclsh supports snack or not
-$TCLSH data/scripts/getf0.tcl > /dev/null 2>&1
-if test $? = 1; then
-	{ { echo "$as_me:$LINENO: error: $TCLSH doesn't support snack" >&5
-echo "$as_me: error: $TCLSH doesn't support snack" >&2;}
-   { (exit 1); exit 1; }; }
-fi
-
-
-
 # bc
 # Extract the first word of "bc", so it can be a program name with args.
 set dummy bc; ac_word=$2
@@ -1718,53 +1637,6 @@ echo "$as_me: error: Can't find bc" >&2;}
    { (exit 1); exit 1; }; }
 fi
 
-# wc
-# Extract the first word of "wc", so it can be a program name with args.
-set dummy wc; ac_word=$2
-echo "$as_me:$LINENO: checking for $ac_word" >&5
-echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
-if test "${ac_cv_path_WC+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  case $WC in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_WC="$WC" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-as_dummy="$PATH:/usr/bin"
-for as_dir in $as_dummy
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_WC="$as_dir/$ac_word$ac_exec_ext"
-    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-
-  test -z "$ac_cv_path_WC" && ac_cv_path_WC="/usr/bin"
-  ;;
-esac
-fi
-WC=$ac_cv_path_WC
-
-if test -n "$WC"; then
-  echo "$as_me:$LINENO: result: $WC" >&5
-echo "${ECHO_T}$WC" >&6
-else
-  echo "$as_me:$LINENO: result: no" >&5
-echo "${ECHO_T}no" >&6
-fi
-
-if test ! -f "$WC"; then
-	{ { echo "$as_me:$LINENO: error: Can't find wc" >&5
-echo "$as_me: error: Can't find wc" >&2;}
-   { (exit 1); exit 1; }; }
-fi
 
 
 # festival
@@ -1931,102 +1803,6 @@ echo "$as_me: error: Can't find x2x of SPTK" >&2;}
    { (exit 1); exit 1; }; }
 fi
 
-# frame
-# Extract the first word of "frame", so it can be a program name with args.
-set dummy frame; ac_word=$2
-echo "$as_me:$LINENO: checking for $ac_word" >&5
-echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
-if test "${ac_cv_path_FRAME+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  case $FRAME in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_FRAME="$FRAME" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-as_dummy="${sptk_search_path}:$PATH"
-for as_dir in $as_dummy
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_FRAME="$as_dir/$ac_word$ac_exec_ext"
-    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-
-  test -z "$ac_cv_path_FRAME" && ac_cv_path_FRAME=":"
-  ;;
-esac
-fi
-FRAME=$ac_cv_path_FRAME
-
-if test -n "$FRAME"; then
-  echo "$as_me:$LINENO: result: $FRAME" >&5
-echo "${ECHO_T}$FRAME" >&6
-else
-  echo "$as_me:$LINENO: result: no" >&5
-echo "${ECHO_T}no" >&6
-fi
-
-if test ! -f "$FRAME"; then
-	{ { echo "$as_me:$LINENO: error: Can't find frame of SPTK" >&5
-echo "$as_me: error: Can't find frame of SPTK" >&2;}
-   { (exit 1); exit 1; }; }
-fi
-
-# window
-# Extract the first word of "window", so it can be a program name with args.
-set dummy window; ac_word=$2
-echo "$as_me:$LINENO: checking for $ac_word" >&5
-echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
-if test "${ac_cv_path_WINDOW+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  case $WINDOW in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_WINDOW="$WINDOW" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-as_dummy="${sptk_search_path}:$PATH"
-for as_dir in $as_dummy
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_WINDOW="$as_dir/$ac_word$ac_exec_ext"
-    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-
-  test -z "$ac_cv_path_WINDOW" && ac_cv_path_WINDOW=":"
-  ;;
-esac
-fi
-WINDOW=$ac_cv_path_WINDOW
-
-if test -n "$WINDOW"; then
-  echo "$as_me:$LINENO: result: $WINDOW" >&5
-echo "${ECHO_T}$WINDOW" >&6
-else
-  echo "$as_me:$LINENO: result: no" >&5
-echo "${ECHO_T}no" >&6
-fi
-
-if test ! -f "$WINDOW"; then
-	{ { echo "$as_me:$LINENO: error: Can't find window of SPTK" >&5
-echo "$as_me: error: Can't find window of SPTK" >&2;}
-   { (exit 1); exit 1; }; }
-fi
-
 # mgcep
 if test -z "$GAMMA"; then
 	# Extract the first word of "mcep", so it can be a program name with args.
@@ -2070,6 +1846,21 @@ else
 echo "${ECHO_T}no" >&6
 fi
 
+	if test ! -f "$MGCEP"; then
+		{ { echo "$as_me:$LINENO: error: Can't find mcep of SPTK" >&5
+echo "$as_me: error: Can't find mcep of SPTK" >&2;}
+   { (exit 1); exit 1; }; }
+	fi
+	version=`$MGCEP -h 2>&1 | grep "version" | sed -e "s/.* //g"`
+	if test -z "$version"; then
+		{ { echo "$as_me:$LINENO: error: mcep in SPTK version 3.2 or later is required." >&5
+echo "$as_me: error: mcep in SPTK version 3.2 or later is required." >&2;}
+   { (exit 1); exit 1; }; }
+	elif test `echo "$version < 3.2" | $BC` = 1; then
+		{ { echo "$as_me:$LINENO: error: mcep in SPTK version 3.2 or later is required." >&5
+echo "$as_me: error: mcep in SPTK version 3.2 or later is required." >&2;}
+   { (exit 1); exit 1; }; }
+	fi
 elif test $GAMMA -eq 0; then
 	# Extract the first word of "mcep", so it can be a program name with args.
 set dummy mcep; ac_word=$2
@@ -2112,6 +1903,21 @@ else
 echo "${ECHO_T}no" >&6
 fi
 
+	if test ! -f "$MGCEP"; then
+		{ { echo "$as_me:$LINENO: error: Can't find mcep of SPTK" >&5
+echo "$as_me: error: Can't find mcep of SPTK" >&2;}
+   { (exit 1); exit 1; }; }
+	fi
+	version=`$MGCEP -h 2>&1 | grep "version" | sed -e "s/.* //g"`
+	if test -z "$version"; then
+		{ { echo "$as_me:$LINENO: error: mcep in SPTK version 3.2 or later is required." >&5
+echo "$as_me: error: mcep in SPTK version 3.2 or later is required." >&2;}
+   { (exit 1); exit 1; }; }
+	elif test `echo "$version < 3.2" | $BC` = 1; then
+		{ { echo "$as_me:$LINENO: error: mcep in SPTK version 3.2 or later is required." >&5
+echo "$as_me: error: mcep in SPTK version 3.2 or later is required." >&2;}
+   { (exit 1); exit 1; }; }
+	fi
 else
 	# Extract the first word of "mgcep", so it can be a program name with args.
 set dummy mgcep; ac_word=$2
@@ -2161,12 +1967,12 @@ echo "$as_me: error: Can't find mgcep of SPTK" >&2;}
 	fi
 	version=`$MGCEP -h 2>&1 | grep "version" | sed -e "s/.* //g"`
 	if test -z "$version"; then
-		{ { echo "$as_me:$LINENO: error: mgcep in SPTK version 3.1 or later is required." >&5
-echo "$as_me: error: mgcep in SPTK version 3.1 or later is required." >&2;}
+		{ { echo "$as_me:$LINENO: error: mgcep in SPTK version 3.2 or later is required." >&5
+echo "$as_me: error: mgcep in SPTK version 3.2 or later is required." >&2;}
    { (exit 1); exit 1; }; }
-	elif test `echo "$version < 3.1" | $BC` = 1; then
-		{ { echo "$as_me:$LINENO: error: mgcep in SPTK version 3.1 or later is required." >&5
-echo "$as_me: error: mgcep in SPTK version 3.1 or later is required." >&2;}
+	elif test `echo "$version < 3.2" | $BC` = 1; then
+		{ { echo "$as_me:$LINENO: error: mgcep in SPTK version 3.2 or later is required." >&5
+echo "$as_me: error: mgcep in SPTK version 3.2 or later is required." >&2;}
    { (exit 1); exit 1; }; }
 	fi
 fi
@@ -2229,112 +2035,6 @@ echo "$as_me: error: lpc2lsp in SPTK version 3.1 or later is required." >&2;}
    { (exit 1); exit 1; }; }
 fi
 
-# nan
-# Extract the first word of "nan", so it can be a program name with args.
-set dummy nan; ac_word=$2
-echo "$as_me:$LINENO: checking for $ac_word" >&5
-echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
-if test "${ac_cv_path_NAN+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  case $NAN in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_NAN="$NAN" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-as_dummy="${sptk_search_path}:$PATH"
-for as_dir in $as_dummy
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_NAN="$as_dir/$ac_word$ac_exec_ext"
-    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-
-  test -z "$ac_cv_path_NAN" && ac_cv_path_NAN=":"
-  ;;
-esac
-fi
-NAN=$ac_cv_path_NAN
-
-if test -n "$NAN"; then
-  echo "$as_me:$LINENO: result: $NAN" >&5
-echo "${ECHO_T}$NAN" >&6
-else
-  echo "$as_me:$LINENO: result: no" >&5
-echo "${ECHO_T}no" >&6
-fi
-
-if test ! -f "$NAN"; then
-	{ { echo "$as_me:$LINENO: error: Can't find nan of SPTK" >&5
-echo "$as_me: error: Can't find nan of SPTK" >&2;}
-   { (exit 1); exit 1; }; }
-fi
-
-# nrand
-# Extract the first word of "nrand", so it can be a program name with args.
-set dummy nrand; ac_word=$2
-echo "$as_me:$LINENO: checking for $ac_word" >&5
-echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
-if test "${ac_cv_path_NRAND+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  case $NRAND in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_NRAND="$NRAND" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-as_dummy="${sptk_search_path}:$PATH"
-for as_dir in $as_dummy
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_NRAND="$as_dir/$ac_word$ac_exec_ext"
-    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-
-  test -z "$ac_cv_path_NRAND" && ac_cv_path_NRAND=":"
-  ;;
-esac
-fi
-NRAND=$ac_cv_path_NRAND
-
-if test -n "$NRAND"; then
-  echo "$as_me:$LINENO: result: $NRAND" >&5
-echo "${ECHO_T}$NRAND" >&6
-else
-  echo "$as_me:$LINENO: result: no" >&5
-echo "${ECHO_T}no" >&6
-fi
-
-	if test ! -f "$NRAND"; then
-{ { echo "$as_me:$LINENO: error: Can't find nrand of SPTK" >&5
-echo "$as_me: error: Can't find nrand of SPTK" >&2;}
-   { (exit 1); exit 1; }; }
-fi
-version=`$NRAND -h 2>&1 | grep "version" | sed -e "s/.* //g"`
-if test -z "$version"; then
-	{ { echo "$as_me:$LINENO: error: nrand in SPTK version 3.1 or later is required." >&5
-echo "$as_me: error: nrand in SPTK version 3.1 or later is required." >&2;}
-   { (exit 1); exit 1; }; }
-elif test `echo "$version < 3.1" | $BC` = 1; then
-	{ { echo "$as_me:$LINENO: error: nrand in SPTK version 3.1 or later is required." >&5
-echo "$as_me: error: nrand in SPTK version 3.1 or later is required." >&2;}
-   { (exit 1); exit 1; }; }
-fi
-
 # vstat
 # Extract the first word of "vstat", so it can be a program name with args.
 set dummy vstat; ac_word=$2
@@ -2380,64 +2080,6 @@ fi
 if test ! -f "$VSTAT"; then
 	{ { echo "$as_me:$LINENO: error: Can't find vstat of SPTK" >&5
 echo "$as_me: error: Can't find vstat of SPTK" >&2;}
-   { (exit 1); exit 1; }; }
-fi
-
-# step
-# Extract the first word of "step", so it can be a program name with args.
-set dummy step; ac_word=$2
-echo "$as_me:$LINENO: checking for $ac_word" >&5
-echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
-if test "${ac_cv_path_STEP+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  case $STEP in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_STEP="$STEP" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-as_dummy="${sptk_search_path}:$PATH"
-for as_dir in $as_dummy
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_STEP="$as_dir/$ac_word$ac_exec_ext"
-    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-
-  test -z "$ac_cv_path_STEP" && ac_cv_path_STEP=":"
-  ;;
-esac
-fi
-STEP=$ac_cv_path_STEP
-
-if test -n "$STEP"; then
-  echo "$as_me:$LINENO: result: $STEP" >&5
-echo "${ECHO_T}$STEP" >&6
-else
-  echo "$as_me:$LINENO: result: no" >&5
-echo "${ECHO_T}no" >&6
-fi
-
-if test ! -f "$STEP"; then
-	{ { echo "$as_me:$LINENO: error: Can't find step of SPTK" >&5
-echo "$as_me: error: Can't find step of SPTK" >&2;}
-   { (exit 1); exit 1; }; }
-fi
-version=`$STEP -h 2>&1 | grep "version" | sed -e "s/.* //g"`
-if test -z "$version"; then
-	{ { echo "$as_me:$LINENO: error: step in SPTK version 3.1 or later is required." >&5
-echo "$as_me: error: step in SPTK version 3.1 or later is required." >&2;}
-   { (exit 1); exit 1; }; }
-elif test `echo "$version < 3.1" | $BC` = 1; then
-	{ { echo "$as_me:$LINENO: error: step in SPTK version 3.1 or later is required." >&5
-echo "$as_me: error: step in SPTK version 3.1 or later is required." >&2;}
    { (exit 1); exit 1; }; }
 fi
 
@@ -2787,6 +2429,64 @@ echo "$as_me: error: merge in SPTK version 3.1 or later is required." >&2;}
    { (exit 1); exit 1; }; }
 fi
 
+# average
+# Extract the first word of "average", so it can be a program name with args.
+set dummy average; ac_word=$2
+echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
+if test "${ac_cv_path_AVERAGE+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  case $AVERAGE in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_AVERAGE="$AVERAGE" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+as_dummy="${sptk_search_path}:$PATH"
+for as_dir in $as_dummy
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_AVERAGE="$as_dir/$ac_word$ac_exec_ext"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+
+  test -z "$ac_cv_path_AVERAGE" && ac_cv_path_AVERAGE=":"
+  ;;
+esac
+fi
+AVERAGE=$ac_cv_path_AVERAGE
+
+if test -n "$AVERAGE"; then
+  echo "$as_me:$LINENO: result: $AVERAGE" >&5
+echo "${ECHO_T}$AVERAGE" >&6
+else
+  echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6
+fi
+
+if test ! -f "$AVERAGE"; then
+	{ { echo "$as_me:$LINENO: error: Can't find average of SPTK" >&5
+echo "$as_me: error: Can't find average of SPTK" >&2;}
+   { (exit 1); exit 1; }; }
+fi
+version=`$AVERAGE -h 2>&1 | grep "version" | sed -e "s/.* //g"`
+if test -z "$version"; then
+	{ { echo "$as_me:$LINENO: error: average in SPTK version 3.1 or later is required." >&5
+echo "$as_me: error: average in SPTK version 3.1 or later is required." >&2;}
+   { (exit 1); exit 1; }; }
+elif test `echo "$version < 3.1" | $BC` = 1; then
+	{ { echo "$as_me:$LINENO: error: average in SPTK version 3.1 or later is required." >&5
+echo "$as_me: error: average in SPTK version 3.1 or later is required." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+
 # bcp
 # Extract the first word of "bcp", so it can be a program name with args.
 set dummy bcp; ac_word=$2
@@ -2832,54 +2532,6 @@ fi
 if test ! -f "$BCP"; then
 	{ { echo "$as_me:$LINENO: error: Can't find bcp of SPTK" >&5
 echo "$as_me: error: Can't find bcp of SPTK" >&2;}
-   { (exit 1); exit 1; }; }
-fi
-
-# excite
-# Extract the first word of "excite", so it can be a program name with args.
-set dummy excite; ac_word=$2
-echo "$as_me:$LINENO: checking for $ac_word" >&5
-echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
-if test "${ac_cv_path_EXCITE+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  case $EXCITE in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_EXCITE="$EXCITE" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-as_dummy="${sptk_search_path}:$PATH"
-for as_dir in $as_dummy
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_EXCITE="$as_dir/$ac_word$ac_exec_ext"
-    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-
-  test -z "$ac_cv_path_EXCITE" && ac_cv_path_EXCITE=":"
-  ;;
-esac
-fi
-EXCITE=$ac_cv_path_EXCITE
-
-if test -n "$EXCITE"; then
-  echo "$as_me:$LINENO: result: $EXCITE" >&5
-echo "${ECHO_T}$EXCITE" >&6
-else
-  echo "$as_me:$LINENO: result: no" >&5
-echo "${ECHO_T}no" >&6
-fi
-
-if test ! -f "$EXCITE"; then
-	{ { echo "$as_me:$LINENO: error: Can't find excite of SPTK" >&5
-echo "$as_me: error: Can't find excite of SPTK" >&2;}
    { (exit 1); exit 1; }; }
 fi
 
@@ -2932,12 +2584,12 @@ echo "$as_me: error: Can't find lsp2lpc of SPTK" >&2;}
 fi
 version=`$LSP2LPC -h 2>&1 | grep "version" | sed -e "s/.* //g"`
 if test -z "$version"; then
-	{ { echo "$as_me:$LINENO: error: lsp2lsp in SPTK version 3.1 or later is required." >&5
-echo "$as_me: error: lsp2lsp in SPTK version 3.1 or later is required." >&2;}
+	{ { echo "$as_me:$LINENO: error: lsp2lpc in SPTK version 3.1 or later is required." >&5
+echo "$as_me: error: lsp2lpc in SPTK version 3.1 or later is required." >&2;}
    { (exit 1); exit 1; }; }
 elif test `echo "$version < 3.1" | $BC` = 1; then
-	{ { echo "$as_me:$LINENO: error: lpc2lsp in SPTK version 3.1 or later is required." >&5
-echo "$as_me: error: lpc2lsp in SPTK version 3.1 or later is required." >&2;}
+	{ { echo "$as_me:$LINENO: error: lsp2lpc in SPTK version 3.1 or later is required." >&5
+echo "$as_me: error: lsp2lpc in SPTK version 3.1 or later is required." >&2;}
    { (exit 1); exit 1; }; }
 fi
 
@@ -3037,17 +2689,17 @@ echo "$as_me: error: Can't find mgc2mgc of SPTK" >&2;}
    { (exit 1); exit 1; }; }
 fi
 
-# mglsadf
-# Extract the first word of "mglsadf", so it can be a program name with args.
-set dummy mglsadf; ac_word=$2
+# mgc2sp
+# Extract the first word of "mgc2sp", so it can be a program name with args.
+set dummy mgc2sp; ac_word=$2
 echo "$as_me:$LINENO: checking for $ac_word" >&5
 echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
-if test "${ac_cv_path_MGLSADF+set}" = set; then
+if test "${ac_cv_path_MGC2SP+set}" = set; then
   echo $ECHO_N "(cached) $ECHO_C" >&6
 else
-  case $MGLSADF in
+  case $MGC2SP in
   [\\/]* | ?:[\\/]*)
-  ac_cv_path_MGLSADF="$MGLSADF" # Let the user override the test with a path.
+  ac_cv_path_MGC2SP="$MGC2SP" # Let the user override the test with a path.
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
@@ -3058,40 +2710,174 @@ do
   test -z "$as_dir" && as_dir=.
   for ac_exec_ext in '' $ac_executable_extensions; do
   if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_MGLSADF="$as_dir/$ac_word$ac_exec_ext"
+    ac_cv_path_MGC2SP="$as_dir/$ac_word$ac_exec_ext"
     echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
     break 2
   fi
 done
 done
 
-  test -z "$ac_cv_path_MGLSADF" && ac_cv_path_MGLSADF=":"
+  test -z "$ac_cv_path_MGC2SP" && ac_cv_path_MGC2SP=":"
   ;;
 esac
 fi
-MGLSADF=$ac_cv_path_MGLSADF
+MGC2SP=$ac_cv_path_MGC2SP
 
-if test -n "$MGLSADF"; then
-  echo "$as_me:$LINENO: result: $MGLSADF" >&5
-echo "${ECHO_T}$MGLSADF" >&6
+if test -n "$MGC2SP"; then
+  echo "$as_me:$LINENO: result: $MGC2SP" >&5
+echo "${ECHO_T}$MGC2SP" >&6
 else
   echo "$as_me:$LINENO: result: no" >&5
 echo "${ECHO_T}no" >&6
 fi
 
-if test ! -f "$MGLSADF"; then
-	{ { echo "$as_me:$LINENO: error: Can't find mglsadf of SPTK" >&5
-echo "$as_me: error: Can't find mglsadf of SPTK" >&2;}
+if test ! -f "$MGC2SP"; then
+	{ { echo "$as_me:$LINENO: error: Can't find mgc2sp of SPTK" >&5
+echo "$as_me: error: Can't find mgc2sp of SPTK" >&2;}
    { (exit 1); exit 1; }; }
 fi
-version=`$MGLSADF -h 2>&1 | grep "version" | sed -e "s/.* //g"`
-if test -z "$version"; then
-	{ { echo "$as_me:$LINENO: error: mglsadf in SPTK version 3.1 or later is required." >&5
-echo "$as_me: error: mglsadf in SPTK version 3.1 or later is required." >&2;}
+
+# interpolate
+# Extract the first word of "interpolate", so it can be a program name with args.
+set dummy interpolate; ac_word=$2
+echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
+if test "${ac_cv_path_INTERPOLATE+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  case $INTERPOLATE in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_INTERPOLATE="$INTERPOLATE" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+as_dummy="${sptk_search_path}:$PATH"
+for as_dir in $as_dummy
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_INTERPOLATE="$as_dir/$ac_word$ac_exec_ext"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+
+  test -z "$ac_cv_path_INTERPOLATE" && ac_cv_path_INTERPOLATE=":"
+  ;;
+esac
+fi
+INTERPOLATE=$ac_cv_path_INTERPOLATE
+
+if test -n "$INTERPOLATE"; then
+  echo "$as_me:$LINENO: result: $INTERPOLATE" >&5
+echo "${ECHO_T}$INTERPOLATE" >&6
+else
+  echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6
+fi
+
+if test ! -f "$INTERPOLATE"; then
+	{ { echo "$as_me:$LINENO: error: Can't find interpolate of SPTK" >&5
+echo "$as_me: error: Can't find interpolate of SPTK" >&2;}
    { (exit 1); exit 1; }; }
-elif test `echo "$version < 3.1" | $BC` = 1; then
-	{ { echo "$as_me:$LINENO: error: mglsadf in SPTK version 3.1 or later is required." >&5
-echo "$as_me: error: mglsadf in SPTK version 3.1 or later is required." >&2;}
+fi
+
+# dfs
+# Extract the first word of "dfs", so it can be a program name with args.
+set dummy dfs; ac_word=$2
+echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
+if test "${ac_cv_path_DFS+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  case $DFS in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_DFS="$DFS" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+as_dummy="${sptk_search_path}:$PATH"
+for as_dir in $as_dummy
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_DFS="$as_dir/$ac_word$ac_exec_ext"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+
+  test -z "$ac_cv_path_DFS" && ac_cv_path_DFS=":"
+  ;;
+esac
+fi
+DFS=$ac_cv_path_DFS
+
+if test -n "$DFS"; then
+  echo "$as_me:$LINENO: result: $DFS" >&5
+echo "${ECHO_T}$DFS" >&6
+else
+  echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6
+fi
+
+if test ! -f "$DFS"; then
+	{ { echo "$as_me:$LINENO: error: Can't find dfs of SPTK" >&5
+echo "$as_me: error: Can't find dfs of SPTK" >&2;}
+   { (exit 1); exit 1; }; }
+fi
+
+# nan
+# Extract the first word of "nan", so it can be a program name with args.
+set dummy nan; ac_word=$2
+echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
+if test "${ac_cv_path_NAN+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  case $NAN in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_NAN="$NAN" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+as_dummy="${sptk_search_path}:$PATH"
+for as_dir in $as_dummy
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_NAN="$as_dir/$ac_word$ac_exec_ext"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+
+  test -z "$ac_cv_path_NAN" && ac_cv_path_NAN=":"
+  ;;
+esac
+fi
+NAN=$ac_cv_path_NAN
+
+if test -n "$NAN"; then
+  echo "$as_me:$LINENO: result: $NAN" >&5
+echo "${ECHO_T}$NAN" >&6
+else
+  echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6
+fi
+
+if test ! -f "$NAN"; then
+	{ { echo "$as_me:$LINENO: error: Can't find nan of SPTK" >&5
+echo "$as_me: error: Can't find nan of SPTK" >&2;}
    { (exit 1); exit 1; }; }
 fi
 
@@ -3153,6 +2939,92 @@ if test ! -f "$SOX"; then
 echo "$as_me: error: Can't find sox" >&2;}
    { (exit 1); exit 1; }; }
 fi
+
+
+
+# MATLAB
+# MATLAB search path
+
+# Check whether --with-matlab-search-path or --without-matlab-search-path was given.
+if test "${with_matlab_search_path+set}" = set; then
+  withval="$with_matlab_search_path"
+  matlab_search_path=$withval
+fi;
+
+# Extract the first word of "matlab", so it can be a program name with args.
+set dummy matlab; ac_word=$2
+echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
+if test "${ac_cv_path_MATLAB+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  case $MATLAB in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_MATLAB="$MATLAB" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+as_dummy="${matlab_search_path}:$PATH"
+for as_dir in $as_dummy
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_MATLAB="$as_dir/$ac_word$ac_exec_ext"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+
+  test -z "$ac_cv_path_MATLAB" && ac_cv_path_MATLAB=":"
+  ;;
+esac
+fi
+MATLAB=$ac_cv_path_MATLAB
+
+if test -n "$MATLAB"; then
+  echo "$as_me:$LINENO: result: $MATLAB" >&5
+echo "${ECHO_T}$MATLAB" >&6
+else
+  echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6
+fi
+
+if test ! -f "$MATLAB"; then
+	{ { echo "$as_me:$LINENO: error: Can't find MATLAB" >&5
+echo "$as_me: error: Can't find MATLAB" >&2;}
+   { (exit 1); exit 1; }; }
+fi
+MATLAB="$MATLAB -nodisplay -nosplash -nojvm"
+
+
+
+# STRAIGHT
+# STRAIGHTpath
+
+# Check whether --with-straight-path or --without-straight-path was given.
+if test "${with_straight_path+set}" = set; then
+  withval="$with_straight_path"
+  STRAIGHT=$withval
+fi;
+if test ! -f "$STRAIGHT/exstraightsource.p" -a ! -f "$STRAIGHT/exstraightsource.m"; then
+	{ { echo "$as_me:$LINENO: error: Can't find exstraightsource in $STRAIGHT" >&5
+echo "$as_me: error: Can't find exstraightsource in $STRAIGHT" >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test ! -f "$STRAIGHT/exstraightspec.p"   -a ! -f "$STRAIGHT/exstraightspec.m";   then
+	{ { echo "$as_me:$LINENO: error: Can't find exstraightspec in $STRAIGHT" >&5
+echo "$as_me: error: Can't find exstraightspec in $STRAIGHT" >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test ! -f "$STRAIGHT/exstraightsynth.p"  -a ! -f "$STRAIGHT/exstraightsynth.m";  then
+	{ { echo "$as_me:$LINENO: error: Can't find exstraightsynth in $STRAIGHT" >&5
+echo "$as_me: error: Can't find exstraightsynth in $STRAIGHT" >&2;}
+   { (exit 1); exit 1; }; }
+fi
+
 
 
 
@@ -4737,30 +4609,9 @@ fi
 
 
 
-
-
-
-
-
 # default values
-if test -z "$FRAMELEN"; then
-	FRAMELEN=400
-fi
-
 if test -z "$FRAMESHIFT"; then
 	FRAMESHIFT=80
-fi
-
-if test -z "$WINDOWTYPE"; then
-	WINDOWTYPE=1
-fi
-
-if test -z "$NORMALIZE"; then
-	NORMALIZE=1
-fi
-
-if test -z "$FFTLEN"; then
-	FFTLEN=512
 fi
 
 if test -z "$SAMPFREQ"; then
@@ -4773,6 +4624,7 @@ if test -z "$FREQWARP"; then
 		10000) FREQWARP=0.35 ;;
 		12000) FREQWARP=0.37 ;;
 		16000) FREQWARP=0.42 ;;
+		22050) FREQWARP=0.45 ;;
 		*)     FREQWARP=0.50 ;;
 	esac
 fi
@@ -4786,11 +4638,7 @@ if test -z "$MGCLSP"; then
 fi
 
 if test -z "$MGCORDER"; then
-	if test $MGCLSP -eq 0; then
-		MGCORDER=24
-	else
-		MGCORDER=12
-	fi
+	MGCORDER=39
 fi
 
 if test -z "$LNGAIN"; then
@@ -4803,10 +4651,6 @@ fi
 
 if test -z "$UPPERF0"; then
 	UPPERF0=350
-fi
-
-if test -z "$NOISEMASK"; then
-	NOISEMASK=50
 fi
 
 if test -z "$PSTFILTER"; then
@@ -4848,13 +4692,9 @@ fi
 
 
 
-
-
-
-
-
 # number of windows
 # parse command-line arguments
+
 
 
 
@@ -4867,7 +4707,12 @@ if test -z "$NLF0WIN"; then
 	NLF0WIN=3
 fi
 
+if test -z "$NBAPWIN"; then
+	NBAPWIN=3
+fi
+
 F0STREN=`expr $NLF0WIN + 1`
+BAPSTREN=`expr $F0STREN + 1`
 
 # substitute variables
 
@@ -4876,8 +4721,11 @@ F0STREN=`expr $NLF0WIN + 1`
 
 
 
+
+
 # model training settings
 # parse command-line arguments
+
 
 
 
@@ -4917,6 +4765,10 @@ if test -z "$NLF0TRANSBLK"; then
 	NLF0TRANSBLK=1
 fi
 
+if test -z "$NBAPTRANSBLK"; then
+	NBAPTRANSBLK=3
+fi
+
 if test -z "$MGCBANDWIDTH"; then
 	if test $MGCLSP -eq 0; then
 		MGCBANDWIDTH=$MGCORDER
@@ -4929,7 +4781,12 @@ if test -z "$LF0BANDWIDTH"; then
 	LF0BANDWIDTH=0
 fi
 
+if test -z "$BAPBANDWIDTH"; then
+	BAPBANDWIDTH=5
+fi
+
 # substitute variables
+
 
 
 
@@ -5662,20 +5519,13 @@ s,@ECHO_T@,$ECHO_T,;t t
 s,@LIBS@,$LIBS,;t t
 s,@AWK@,$AWK,;t t
 s,@PERL@,$PERL,;t t
-s,@TCLSH@,$TCLSH,;t t
 s,@BC@,$BC,;t t
-s,@WC@,$WC,;t t
 s,@DUMPFEATS@,$DUMPFEATS,;t t
 s,@SWAB@,$SWAB,;t t
 s,@X2X@,$X2X,;t t
-s,@FRAME@,$FRAME,;t t
-s,@WINDOW@,$WINDOW,;t t
 s,@MGCEP@,$MGCEP,;t t
 s,@LPC2LSP@,$LPC2LSP,;t t
-s,@NAN@,$NAN,;t t
-s,@NRAND@,$NRAND,;t t
 s,@VSTAT@,$VSTAT,;t t
-s,@STEP@,$STEP,;t t
 s,@SOPR@,$SOPR,;t t
 s,@VOPR@,$VOPR,;t t
 s,@FREQT@,$FREQT,;t t
@@ -5683,13 +5533,18 @@ s,@C2ACR@,$C2ACR,;t t
 s,@MC2B@,$MC2B,;t t
 s,@B2MC@,$B2MC,;t t
 s,@MERGE@,$MERGE,;t t
+s,@AVERAGE@,$AVERAGE,;t t
 s,@BCP@,$BCP,;t t
-s,@EXCITE@,$EXCITE,;t t
 s,@LSP2LPC@,$LSP2LPC,;t t
 s,@LSPCHECK@,$LSPCHECK,;t t
 s,@MGC2MGC@,$MGC2MGC,;t t
-s,@MGLSADF@,$MGLSADF,;t t
+s,@MGC2SP@,$MGC2SP,;t t
+s,@INTERPOLATE@,$INTERPOLATE,;t t
+s,@DFS@,$DFS,;t t
+s,@NAN@,$NAN,;t t
 s,@SOX@,$SOX,;t t
+s,@MATLAB@,$MATLAB,;t t
+s,@STRAIGHT@,$STRAIGHT,;t t
 s,@HMGENS@,$HMGENS,;t t
 s,@HCOMPV@,$HCOMPV,;t t
 s,@HINIT@,$HINIT,;t t
@@ -5710,11 +5565,7 @@ s,@DATASET@,$DATASET,;t t
 s,@VER@,$VER,;t t
 s,@QNUM@,$QNUM,;t t
 s,@PWD@,$PWD,;t t
-s,@FRAMELEN@,$FRAMELEN,;t t
 s,@FRAMESHIFT@,$FRAMESHIFT,;t t
-s,@WINDOWTYPE@,$WINDOWTYPE,;t t
-s,@NORMALIZE@,$NORMALIZE,;t t
-s,@FFTLEN@,$FFTLEN,;t t
 s,@FREQWARP@,$FREQWARP,;t t
 s,@GAMMA@,$GAMMA,;t t
 s,@MGCLSP@,$MGCLSP,;t t
@@ -5722,14 +5573,15 @@ s,@MGCORDER@,$MGCORDER,;t t
 s,@LNGAIN@,$LNGAIN,;t t
 s,@LOWERF0@,$LOWERF0,;t t
 s,@UPPERF0@,$UPPERF0,;t t
-s,@NOISEMASK@,$NOISEMASK,;t t
 s,@PSTFILTER@,$PSTFILTER,;t t
 s,@IMPLEN@,$IMPLEN,;t t
 s,@SAMPFREQ@,$SAMPFREQ,;t t
 s,@MGCVSIZE@,$MGCVSIZE,;t t
 s,@NMGCWIN@,$NMGCWIN,;t t
 s,@NLF0WIN@,$NLF0WIN,;t t
+s,@NBAPWIN@,$NBAPWIN,;t t
 s,@F0STREN@,$F0STREN,;t t
+s,@BAPSTREN@,$BAPSTREN,;t t
 s,@NSTATE@,$NSTATE,;t t
 s,@NITER@,$NITER,;t t
 s,@WFLOOR@,$WFLOOR,;t t
@@ -5737,8 +5589,10 @@ s,@MAXDEV@,$MAXDEV,;t t
 s,@MINDUR@,$MINDUR,;t t
 s,@NMGCTRANSBLK@,$NMGCTRANSBLK,;t t
 s,@NLF0TRANSBLK@,$NLF0TRANSBLK,;t t
+s,@NBAPTRANSBLK@,$NBAPTRANSBLK,;t t
 s,@MGCBANDWIDTH@,$MGCBANDWIDTH,;t t
 s,@LF0BANDWIDTH@,$LF0BANDWIDTH,;t t
+s,@BAPBANDWIDTH@,$BAPBANDWIDTH,;t t
 s,@MAXEMITER@,$MAXEMITER,;t t
 s,@EMEPSILON@,$EMEPSILON,;t t
 s,@USEGV@,$USEGV,;t t

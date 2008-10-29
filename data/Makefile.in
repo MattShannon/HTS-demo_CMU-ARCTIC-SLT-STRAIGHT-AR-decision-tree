@@ -46,145 +46,181 @@
 SPEAKER = @SPEAKER@
 DATASET = @DATASET@
 
-# awk, perl, bc and tcl
+# awk and perl
 AWK   = @AWK@
 PERL  = @PERL@
-BC    = @BC@
-TCLSH = @TCLSH@
-WC    = @WC@
 
 # SPTK commands
 SWAB    = @SWAB@
 X2X     = @X2X@
-FRAME   = @FRAME@
-WINDOW  = @WINDOW@
 MGCEP   = @MGCEP@
 LPC2LSP = @LPC2LSP@
-STEP    = @STEP@
+BCP     = @BCP@
+AVERAGE = @AVERAGE@
 MERGE   = @MERGE@
 VSTAT   = @VSTAT@
-NRAND   = @NRAND@
-SOPR    = @SOPR@
-VOPR    = @VOPR@
 NAN     = @NAN@
+
+# MATLAB and STRAIGHT
+MATLAB   = @MATLAB@
+STRAIGHT = @STRAIGHT@
 
 # dumpfeats to extract utterance information
 DUMPFEATS = @DUMPFEATS@
 
+# SOX to convert raw audio to RIFF wav
+SOX = @SOX@
+
 # speech analysis conditions
-BYTESWAP    = @BYTESWAP@     # Little Endian (i*86, x86_64, Alpha, etc.) => 0    Big Endian (PowerPC, SPARC, 680x0, etc.) => 1
+BYTESWAP    = @BYTESWAP@     # Little Endian (i*86, x86_64, Alpha, etc.) => 0  Big Endian (PowerPC, SPARC, 680x0, etc.) => 1
 SAMPFREQ    = @SAMPFREQ@ # Sampling frequency (16kHz)
-FRAMELEN    = @FRAMELEN@   # Frame length in point (400 = 16000 * 0.025) 
 FRAMESHIFT  = @FRAMESHIFT@    # Frame shift in point (80 = 16000 * 0.005)
-WINDOWTYPE  = @WINDOWTYPE@     # Window type -> 0: Blackman 1: Hamming 2: Hanning
-NORMALIZE   = @NORMALIZE@     # Normalization -> 0: none  1: by power  2: by magnitude
-FFTLEN      = @FFTLEN@   # FFT length in point
 FREQWARP    = @FREQWARP@  # frequency warping factor
 GAMMA       = @GAMMA@     # pole/zero weight for mel-generalized cepstral (MGC) analysis
 MGCORDER    = @MGCORDER@    # order of MGC analysis
 MGCLSP      = @MGCLSP@     # convert MGC coefficients into MGC-LSP form 
-LNGAIN      = @LNGAIN@     # use logarithmic gain rather than linear gain
-LOWERF0     = @LOWERF0@    # lower limit for f0 extraction (Hz) (get_f0's default is 60 Hz)
-UPPERF0     = @UPPERF0@   # upper limit for f0 extraction (Hz) (get_f0's default is 400 Hz)
-NOISEMASK   = @NOISEMASK@    # standard deviation of white noise to mask noises in f0 extraction
+LNGAIN      = @LNGAIN@     # use log gain rather than linear gain
+LOWERF0     = @LOWERF0@    # lower limit for f0 extraction (Hz) 
+UPPERF0     = @UPPERF0@   # upper limit for f0 extraction (Hz) 
 
 # windows for calculating delta features
 MGCWIN      = win/mgc.win
 LF0WIN      = win/lf0.win
+BAPWIN      = win/bap.win
 NMGCWIN     = @NMGCWIN@
 NLF0WIN     = @NLF0WIN@
+NBAPWIN     = @NBAPWIN@
 
 all: analysis labels
 
-analysis: mgc lf0 cmp gv
+analysis: straight mgc lf0 bap cmp gv
 
 labels: label mlf list scp
 
-mgc:
-	# Extracting MGC or MGC-LSP coefficients from raw audio
-	mkdir -p mgc
-	
+straight:
+	# Extracting f0, aperiodicity, and spectra using STRAIGHT
+	mkdir -p wav sp ap f0
+	frameshift=`expr 1000 \* $(FRAMESHIFT) / $(SAMPFREQ)`; \
+	echo "path(path,'$(STRAIGHT)');"                      >  scripts/extract.m; \
+	echo "prm.F0frameUpdateInterval=$${frameshift};"      >> scripts/extract.m; \
+	echo "prm.F0searchUpperBound=$(UPPERF0);"             >> scripts/extract.m; \
+	echo "prm.F0searchLowerBound=$(LOWERF0);"             >> scripts/extract.m; \
+	echo "prm.spectralUpdateInterval=$${frameshift};"     >> scripts/extract.m; \
+	echo ""                                               >> scripts/extract.m
 	for raw in raw/$(DATASET)_$(SPEAKER)_*.raw; do \
 		base=`basename $${raw} .raw`; \
-		if [ -s $${raw} ]; then \
-			if [ $(BYTESWAP) -eq 1 ]; then \
-				$(SWAB) +s $${raw} | $(X2X) +sf > tmp;  \
-			else \
-				$(X2X) +sf $${raw} > tmp; \
-			fi; \
+		wav=wav/$${base}.wav; \
+		f0=f0/$${base}.f0; \
+		ap=ap/$${base}.ap; \
+		sp=sp/$${base}.sp; \
+		echo -n "Converting $${raw} to $${wav} and generating MATLAB script..."; \
+		$(SOX) -c 1 -s -w -t raw -r $(SAMPFREQ) $${raw} -c 1 -s -w -t wav -r $(SAMPFREQ) $${wav}; \
+		echo "fprintf(1,'Processing $${wav}\n');"     >> scripts/extract.m; \
+		echo "[x,fs]=wavread('$${wav}');"             >> scripts/extract.m; \
+		echo "[f0, ap] = exstraightsource(x,fs,prm);" >> scripts/extract.m; \
+		echo "[sp] = exstraightspec(x, f0, fs, prm);" >> scripts/extract.m; \
+		echo "ap = ap';"                              >> scripts/extract.m; \
+		echo "sp = sp';"                              >> scripts/extract.m; \
+		echo "save '$${f0}' f0 -ascii;"               >> scripts/extract.m; \
+		echo "save '$${ap}' ap -ascii;"               >> scripts/extract.m; \
+		echo "save '$${sp}' sp -ascii;"               >> scripts/extract.m; \
+		echo ""                                       >> scripts/extract.m; \
+		echo "done"; \
+	done; \
+	echo "quit;"                                          >> scripts/extract.m
+	$(MATLAB) < scripts/extract.m
+	rm -f scripts/extract.m
+
+mgc:
+	# Extracting MGC or MGC-LSP coefficients from STRAIGHT spectra
+	mkdir -p mgc
+	for sp in sp/$(DATASET)_$(SPEAKER)_*.sp; do \
+		base=`basename $${sp} .sp`; \
+		if [ -s $${sp} ]; then \
 			if [ $(MGCLSP) -eq 0 ]; then \
-				echo "Extracting MGC coefficients from $${raw}"; \
+				echo "Extracting MGC coefficients from $${sp}"; \
 				if [ $(GAMMA) -ne 0 ]; then \
 					GAMMAOPT="-g $(GAMMA)"; \
 				fi; \
-				$(FRAME) +f -l $(FRAMELEN) -p $(FRAMESHIFT) tmp | \
-				$(WINDOW) -l $(FRAMELEN) -L $(FFTLEN) -w $(WINDOWTYPE) -n $(NORMALIZE) | \
-				$(MGCEP) -a $(FREQWARP) $${GAMMAOPT} -m $(MGCORDER) -l $(FFTLEN) > mgc/$${base}.mgc; \
+				$(X2X) +af $${sp} | \
+				$(MGCEP) -a $(FREQWARP) $${GAMMAOPT} -m $(MGCORDER) -l 1024 -j 0 -f 0.0 -q 3 > mgc/$${base}.mgc; \
 			else \
-				echo "Extracting MGC-LSP coefficients from $${raw}"; \
+				echo "Extracting MGC-LSP coefficients from $${sp}"; \
 				SAMPKHZ=`expr $(SAMPFREQ) / 1000`; \
 				if [ $(LNGAIN) -eq 1 ]; then \
 					GAINOPT="-l"; \
 				fi; \
-				$(FRAME) +f -l $(FRAMELEN) -p $(FRAMESHIFT) tmp | \
-				$(WINDOW) -l $(FRAMELEN) -L $(FFTLEN) -w $(WINDOWTYPE) -n $(NORMALIZE) | \
-				$(MGCEP) -a $(FREQWARP) -g $(GAMMA) -m $(MGCORDER) -l $(FFTLEN) -o 4 | \
-				$(LPC2LSP) -m $(MGCORDER) -s $${SAMPKHZ} $${GAINOPT} -n $(FFTLEN) -p 8 -d 1e-6 > mgc/$${base}.mgc; \
+				$(X2X) +af $${sp} | \
+				$(MGCEP) -a $(FREQWARP) -g $(GAMMA) -m $(MGCORDER) -l 1024 -f 0.0 -q 3 -o 4 | \
+				$(LPC2LSP) -m $(MGCORDER) -s $${SAMPKHZ} $${GAINOPT} -n 1024 -p 8 -d 1e-8 > mgc/$${base}.mgc; \
 			fi; \
 			if [ -n "`$(NAN) mgc/$${base}.mgc`" ]; then \
-				echo " Failed to extract MGC coefficients from $${raw}"; \
+				echo " Failed to extract MGC coefficients from $${sp}"; \
 				rm -f mgc/$${base}.mgc; \
 			fi; \
 		fi; \
 	done
-	
 	rm -f tmp
 
 lf0:
-	# Extracting log f0 sequence from raw audio
+	# Converting f0 to log f0
 	mkdir -p lf0
-	
-	for raw in raw/$(DATASET)_$(SPEAKER)_*.raw; do \
-		base=`basename $${raw} .raw`; \
-		if [ -s $${raw} ]; then \
-			echo "Extracting f0 from $${raw}"; \
-			count=`echo "0.005 * $(SAMPFREQ)" | $(BC) -l`; \
-			$(STEP) -l `printf "%.0f" $${count}` -v 0.0 | \
-			$(X2X) +fs > tmp.head; \
-			count=`echo "0.025 * $(SAMPFREQ)" | $(BC) -l`; \
-			$(STEP) -l `printf "%.0f" $${count}` -v 0.0 | \
-			$(X2X) +fs > tmp.tail; \
-			cat tmp.head $${raw} tmp.tail | \
-			$(X2X) +sf > tmp; \
-			leng=`$(X2X) +fa tmp | $(WC) -l`; \
-			$(NRAND) -l $${leng} | $(SOPR) -m $(NOISEMASK) | $(VOPR) -a tmp | \
-			$(X2X) +fs > tmp.raw; \
-			$(TCLSH) scripts/getf0.tcl -l -lf0 -H $(UPPERF0) -L $(LOWERF0) -p $(FRAMESHIFT) -r $(SAMPFREQ) tmp.raw | \
-			$(X2X) +af > lf0/$${base}.lf0; \
+	for f0 in f0/$(DATASET)_$(SPEAKER)_*.f0; do \
+		base=`basename $${f0} .f0`; \
+		if [ -s $${f0} ]; then \
+			echo "Converting F0 file $${f0} to log F0 file lf0/$${base}.lf0"; \
+			$(X2X) +af $${f0} > tmp; \
+			$(PERL) scripts/freq2lfreq.pl tmp > lf0/$${base}.lf0; \
 			if [ -n "`$(NAN) lf0/$${base}.lf0`" ]; then \
-				echo " Failed to extract log f0 from $${raw}"; \
+				echo " Failed to extract $${f0}"; \
 				rm -f lf0/$${base}.lf0; \
 			fi; \
 		fi; \
 	done
-	
-	rm -f tmp tmp.head tmp.tail tmp.raw
+	rm -f tmp
+
+bap:
+	# Converting aperiodicity to band aperiodicity
+	mkdir -p bap
+	for ap in ap/$(DATASET)_$(SPEAKER)_*.ap; do \
+		base=`basename $${ap} .ap`; \
+		if [ -s $${ap} ]; then \
+			echo "Converting aperiodicity file $${ap} to band aperiodicity file bap/$${base}.bap"; \
+			$(X2X) +af $${ap} | $(BCP) +f -n 512 -L  64 -s   0 -e  63 -S 0 | $(AVERAGE) -l  64 > bap1; \
+			$(X2X) +af $${ap} | $(BCP) +f -n 512 -L  64 -s  64 -e 127 -S 0 | $(AVERAGE) -l  64 > bap2; \
+			$(X2X) +af $${ap} | $(BCP) +f -n 512 -L 128 -s 128 -e 255 -S 0 | $(AVERAGE) -l 128 > bap3; \
+			$(X2X) +af $${ap} | $(BCP) +f -n 512 -L 128 -s 256 -e 383 -S 0 | $(AVERAGE) -l 128 > bap4; \
+			$(X2X) +af $${ap} | $(BCP) +f -n 512 -L 129 -s 384 -e 512 -S 0 | $(AVERAGE) -l 129 > bap5; \
+			$(MERGE) -s 0 -l 1 -L 1 bap1 bap2 | \
+			$(MERGE) -s 2 -l 2 -L 1 bap3 | \
+			$(MERGE) -s 3 -l 3 -L 1 bap4 | \
+			$(MERGE) -s 4 -l 4 -L 1 bap5 > bap/$${base}.bap; \
+			if [ -n "`$(NAN) bap/$${base}.bap`" ]; then \
+				echo " Failed to extract aperiodicity coefficients $${ap}"; \
+				rm -f bap/$${base}.bap; \
+			fi; \
+		fi; \
+	done
+	rm -f bap{1,2,3,4,5}
 
 cmp: 
 	# Composing training data files from mgc and lf0 files
 	mkdir -p cmp
-
 	for j in 1; do \
 		MGCDIM=`expr $(MGCORDER) + 1`; \
 		LF0DIM=1; \
+		BAPDIM=5; \
 		MGCWINDIM=`expr $(NMGCWIN) \* $${MGCDIM}`; \
 		LF0WINDIM=`expr $(NLF0WIN) \* $${LF0DIM}`; \
-		BYTEPERFRAME=`expr 4 \* \( $${MGCWINDIM} + $${LF0WINDIM} \)`; \
+		BAPWINDIM=`expr $(NBAPWIN) \* $${BAPDIM}`; \
+		MGCLF0WINDIM=`expr $${MGCWINDIM} + $${LF0WINDIM}`; \
+		BYTEPERFRAME=`expr 4 \* \( $${MGCWINDIM} + $${LF0WINDIM} + $${BAPWINDIM} \)`; \
 		for mgc in mgc/$(DATASET)_$(SPEAKER)_*.mgc; do \
 			base=`basename $${mgc} .mgc`; \
 			MGCWINS=""; \
 			LF0WINS=""; \
-			if [ -s $${mgc} -a -s lf0/$${base}.lf0 ]; then \
+			BAPWINS=""; \
+			if [ -s $${mgc} -a -s lf0/$${base}.lf0 -a -s bap/$${base}.bap ]; then \
 				i=1; \
 				echo "Composing training data for $${base}"; \
 				while [ $${i} -le $(NMGCWIN) ]; do \
@@ -198,7 +234,14 @@ cmp:
 					i=`expr $${i} + 1`; \
 				done; \
 				$(PERL) scripts/window.pl $${LF0DIM} lf0/$${base}.lf0 $${LF0WINS} > cmp/tmp.lf0; \
-				$(MERGE) +f -s 0 -l $${LF0WINDIM} -L $${MGCWINDIM} cmp/tmp.mgc < cmp/tmp.lf0 > cmp/tmp.cmp; \
+				i=1; \
+				while [ $${i} -le $(NBAPWIN) ]; do \
+					eval BAPWINS=\"$${BAPWINS} $(BAPWIN)$${i}\"; \
+					i=`expr $${i} + 1`; \
+				done; \
+				$(PERL) scripts/window.pl $${BAPDIM} bap/$${base}.bap $${BAPWINS} > cmp/tmp.bap; \
+				$(MERGE) +f -s 0 -l $${LF0WINDIM} -L $${MGCWINDIM}     cmp/tmp.mgc     < cmp/tmp.lf0 > cmp/tmp.mgc+lf0; \
+				$(MERGE) +f -s 0 -l $${BAPWINDIM} -L $${MGCLF0WINDIM}  cmp/tmp.mgc+lf0 < cmp/tmp.bap > cmp/tmp.cmp; \
 				$(PERL) scripts/addhtkheader.pl $(SAMPFREQ) $(FRAMESHIFT) $${BYTEPERFRAME} 9 cmp/tmp.cmp > cmp/$${base}.cmp; \
 			fi; \
 		done; \
@@ -207,8 +250,7 @@ cmp:
 
 gv:
 	mkdir -p gv
-	rm -f gvdata_mgc gvdata_lf0
-
+	rm -f gvdata_mgc gvdata_lf0 gvdata_bap
 	# generating GV data
 	for raw in raw/$(DATASET)_$(SPEAKER)_*.raw; do \
 		base=`basename $${raw} .raw`; \
@@ -218,39 +260,49 @@ gv:
 		if [ -s lf0/$${base}.lf0 ]; then \
 			$(X2X) +fa lf0/$${base}.lf0 | grep -v '\-1e+10' | $(X2X) +af | $(VSTAT) -l 1 -o 2 -d >> gvdata_lf0; \
 		fi; \
+		if [ -s bap/$${base}.bap ]; then \
+			$(VSTAT) -l 5 -o 2 -d bap/$${base}.bap >> gvdata_bap; \
+		fi; \
 	done
-	
 	# calculating GV pdfs
 	$(VSTAT) -n $(MGCORDER) -o 0 -d gvdata_mgc > gv/gv-mgc.pdf
 	$(VSTAT) -l 1 -o 0 -d gvdata_lf0 > gv/gv-lf0.pdf
-
+	$(VSTAT) -l 5 -o 0 -d gvdata_bap > gv/gv-bap.pdf
+	
 	# GV pdfs in big endian (for hts_engine)
 	# Add header (dimensionality and # of distributions)
 	if [ $(BYTESWAP) -eq 1 ]; then \
 		MGCDIM=`expr $(MGCORDER) + 1`; \
 		LF0DIM=1; \
+		BAPDIM=5; \
 		echo $${MGCDIM} | $(X2X) +ai >  gv/gv-mgc.pdf.big; \
 		echo "1"        | $(X2X) +ai >> gv/gv-mgc.pdf.big; \
 		cat  gv/gv-mgc.pdf           >> gv/gv-mgc.pdf.big; \
 		echo $${LF0DIM} | $(X2X) +ai >  gv/gv-lf0.pdf.big; \
 		echo "1"        | $(X2X) +ai >> gv/gv-lf0.pdf.big; \
 		cat  gv/gv-lf0.pdf           >> gv/gv-lf0.pdf.big; \
+		echo $${BAPDIM} | $(X2X) +ai >  gv/gv-bap.pdf.big; \
+		echo "1"        | $(X2X) +ai >> gv/gv-bap.pdf.big; \
+		cat  gv/gv-bap.pdf           >> gv/gv-bap.pdf.big; \
 	else \
 		MGCDIM=`expr $(MGCORDER) + 1`; \
 		LF0DIM=1; \
+		BAPDIM=5; \
 		echo $${MGCDIM} | $(X2X) +ai | $(SWAB) +f >  gv/gv-mgc.pdf.big; \
 		echo "1"        | $(X2X) +ai | $(SWAB) +f >> gv/gv-mgc.pdf.big; \
 		$(SWAB) +f gv/gv-mgc.pdf                  >> gv/gv-mgc.pdf.big; \
 		echo $${LF0DIM} | $(X2X) +ai | $(SWAB) +f >  gv/gv-lf0.pdf.big; \
 		echo "1"        | $(X2X) +ai | $(SWAB) +f >> gv/gv-lf0.pdf.big; \
 		$(SWAB) +f gv/gv-lf0.pdf                  >> gv/gv-lf0.pdf.big; \
+		echo $${BAPDIM} | $(X2X) +ai | $(SWAB) +f >  gv/gv-bap.pdf.big; \
+		echo "1"        | $(X2X) +ai | $(SWAB) +f >> gv/gv-bap.pdf.big; \
+		$(SWAB) +f gv/gv-bap.pdf                  >> gv/gv-bap.pdf.big; \
 	fi; \
-	rm -f gvdata_mgc gvdata_lf0
+	rm -f gvdata_mgc gvdata_lf0 gvdata_bap
 
 label:
 	mkdir -p labels/mono
 	mkdir -p labels/full
-
 	# Extracting monophone and fullcontext labels from utterance files
 	for utt in utts/$(DATASET)_$(SPEAKER)_*.utt; do \
 		base=`basename $${utt} .utt`; \
@@ -270,13 +322,11 @@ mlf:
 	# Generating monophone and fullcontext Master Label Files (MLF)
 	echo "#!MLF!#" > labels/mono.mlf
 	echo "\"*/$(DATASET)_$(SPEAKER)_*.lab\" -> \"@PWD@/data/labels/mono\"" >> labels/mono.mlf
-
 	echo "#!MLF!#" > labels/full.mlf
 	echo "\"*/$(DATASET)_$(SPEAKER)_*.lab\" -> \"@PWD@/data/labels/full\"" >> labels/full.mlf
 
 list:
 	mkdir -p lists
-
 	# Generating a fullcntext model list occurred in the training data
 	rm -f tmp
 	for lab in labels/full/$(DATASET)_$(SPEAKER)_*.lab; do \
@@ -286,7 +336,6 @@ list:
 	done
 	sort -u tmp > lists/full.list
 	rm -f tmp
-
 	# Generating a fullcontext model list including unseen models 
 	rm -f tmp
 	cat lists/full.list > tmp
@@ -295,7 +344,6 @@ list:
 	done
 	sort -u tmp > lists/full_all.list
 	rm -f tmp
-
 	# Generating a monophone list 
 	rm -f tmp
 	for lab in labels/mono/$(DATASET)_$(SPEAKER)_*.lab; do \
@@ -308,7 +356,6 @@ list:
 
 scp:
 	mkdir -p scp
-	
 	# Generating a trainig data script
 	rm -f scp/train.scp
 	for cmp in @PWD@/data/cmp/$(DATASET)_$(SPEAKER)_*.cmp; do \
@@ -316,7 +363,6 @@ scp:
 			echo $${cmp} >> scp/train.scp; \
 		fi \
 	done
-
 	# Generating a generation label script
 	rm -f scp/gen.scp
 	for lab in @PWD@/data/labels/gen/*.lab; do \
@@ -324,8 +370,19 @@ scp:
 	done
 
 
-clean: clean-mgc clean-lf0 clean-cmp clean-gv clean-label clean-mlf clean-list clean-scp
+clean: clean-straight clean-mgc clean-lf0 clean-cmp clean-gv clean-label clean-mlf clean-list clean-scp
 
+clean-straight: clean-sp clean-f0 clean-ap
+
+clean-sp:
+	rm -rf sp
+
+clean-f0:
+	rm -rf f0
+
+clean-ap:
+	rm -rf ap
+	
 clean-mgc:
 	rm -rf mgc
 
@@ -344,7 +401,7 @@ clean-label:
 
 clean-mlf:
 	rm -f labels/*.mlf
-	
+
 clean-list:
 	rm -rf lists
 
@@ -354,4 +411,4 @@ clean-scp:
 distclean: clean
 	rm -f Makefile
 
-.PHONY: all analysis labels mgc lf0 cmp gv label mlf list scp clean 
+.PHONY: all analysis labels mgc lf0 bap f0 sp ap cmp gv label mlf list scp clean 
