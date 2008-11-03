@@ -19,4 +19,3 @@
 ^log$
 ^log.make$
 ^scripts/Config.pm$
-^scripts/gen_wave.pl$
