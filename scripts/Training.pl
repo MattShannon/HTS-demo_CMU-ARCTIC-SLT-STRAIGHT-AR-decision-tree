@@ -288,7 +288,7 @@ if ($MMMMF) {
       foreach $type (@{$ref{$set}}) {
          if ($strw{$type}!=1.0) {
             print  EDFILE "// tie stream weights\n";
-            printf EDFILE "TI SW_all {*.state[%d-%d].weights}\n", 2, $nState-1;
+            printf EDFILE "TI SW_all {*.state[%d-%d].weights}\n", 2, $nState+1;
             last;
          }
       }
