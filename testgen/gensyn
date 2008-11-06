@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+set -u
+set -o pipefail
+
+if [ $# -ne 1 ]; then
+	echo "usage: gen RESULTSDIR"
+	exit 1
+fi
+
+resultsDir="$1"
+
+mkdir -p "$resultsDir"
+
+# speech parameter generation
+HMGenS -p -A -D -T 1 -B -C syn.cnf -S reduced.scp -t 1500 100 5000 -c 0 -H ../models/qst001/ver1/cmp/re_clustered_all.mmf.1mix -N ../models/qst001/ver1/dur/re_clustered_all.mmf.1mix -M "$resultsDir" ../models/qst001/ver1/cmp/tiedlist ../models/qst001/ver1/dur/tiedlist > "$resultsDir/hmgens.log"
+
+# synthesis
+../scripts/gen_wave.pl ../scripts/Config.pm "$resultsDir" > "$resultsDir/synthesis.log"
