@@ -1,4 +1,5 @@
 (^|/)Makefile$
+(^|/)configure$
 (^|/)configs($|/)
 (^|/)edfiles($|/)
 (^|/)gen($|/)
