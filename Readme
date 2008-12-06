@@ -1,0 +1,11 @@
+Steps to make a working copy:
+
+1. copy boring.darcs into _darcs/prefs/boring
+2. run autoconf to generate configure
+3. run configure with appropriate params
+4. replace data/raw and data/utts with appropriate symlinks
+5. make appropriate things executable:
+    - scripts/*.pl
+	- testgen/gensyn*
+
+Then make any other adjustments, run make, and wait!
