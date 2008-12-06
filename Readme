@@ -6,6 +6,6 @@ Steps to make a working copy:
 4. replace data/raw and data/utts with appropriate symlinks
 5. make appropriate things executable:
     - scripts/*.pl
-	- testgen/gensyn*
+    - testgen/gensyn*
 
 Then make any other adjustments, run make, and wait!
