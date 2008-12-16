@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+set -u
+set -o pipefail
+
+cat "$@" | grep -v '\.state' | sed -r 's/^[^-]+-([^+]+)\+.*duration=([0-9]+).*$/\1 \2/' | awk 'BEGIN { count = 0 }; { prevCount = count; count += $2; print $1,$2,prevCount,count }'
