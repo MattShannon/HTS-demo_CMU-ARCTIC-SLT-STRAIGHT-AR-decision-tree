@@ -17,3 +17,5 @@ HMGenS -p -A -D -T 1 -B -C syn.cnf -S reduced.scp -t 1500 100 5000 -c 0 -H ../mo
 
 # synthesis (needs access to MATLAB)
 ../scripts/gen_wave.pl ../scripts/Config.pm "$resultsDir" > "$resultsDir/synthesis.log"
+
+cp syn.cnf reduced.scp "$resultsDir/"
