@@ -1,6 +1,6 @@
 Use 'gensyn' script to generate speech.  Needs the following files:
 
-  syn.cnf - adjusted version of syn.cnf config file
-  reduced.scp - script file containing label files to generate for
+  syn.cnf - adjusted version of syn.cnf config file (for example 'cp -p ../configs/syn.cnf .')
+  reduced.scp - script file containing label files to generate for (for example 'head -n 2 ../data/scp/gen.scp > reduced.scp')
 
 Note it assumes you run it in its own directory.
