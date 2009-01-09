@@ -394,7 +394,7 @@ AC_ARG_VAR([MGCORDER],[Order of MGC analysis (default=39)])
 AC_ARG_VAR([LNGAIN],[Use logarithmic gain instead of linear gain (default=0)])
 AC_ARG_VAR([LOWERF0],[Lower limit for F0 extraction in Hz (default=80)])
 AC_ARG_VAR([UPPERF0],[Upper limit for F0 extraction in Hz (default=350)])
-AC_ARG_VAR([PSTFILTER],[Postfiltering factor (default=1.4)])
+AC_ARG_VAR([PSTFILTER],[Postfiltering factor (default=1.0)])
 AC_ARG_VAR([IMPLEN],[Length of impulse response (default=4096)])
 AC_ARG_VAR([SAMPFREQ],[Sampling frequency in Hz (default=16000)])
 
@@ -443,7 +443,7 @@ if test -z "$UPPERF0"; then
 fi 
 
 if test -z "$PSTFILTER"; then
-	PSTFILTER=1.4
+	PSTFILTER=1.0
 fi
 
 if test -z "$IMPLEN"; then
