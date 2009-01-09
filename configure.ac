@@ -479,13 +479,13 @@ AC_SUBST(MGCVSIZE)
 
 # number of windows
 # parse command-line arguments
-AC_ARG_VAR([NMGCWIN],[number of delta windows for MGC coefficients (default=3)])
+AC_ARG_VAR([NMGCWIN],[number of delta windows for MGC coefficients (default=4)])
 AC_ARG_VAR([NLF0WIN],[number of delta windows for log F0 values (default=3)])
 AC_ARG_VAR([NBAPWIN],[number of delta windows for band aperiodicity values (default=3)])
 
 # default values
 if test -z "$NMGCWIN"; then
-	NMGCWIN=3
+	NMGCWIN=4
 fi
 
 if test -z "$NLF0WIN"; then
@@ -515,7 +515,7 @@ AC_ARG_VAR([NITER],[number of iterations of embedded training (default=5)])
 AC_ARG_VAR([WFLOOR],[mixture weight flooring scale (default=3)])
 AC_ARG_VAR([MAXDEV],[maximum duration scaling factor (default=10)])
 AC_ARG_VAR([MINDUR],[minimum duration to be evaluated (default=5)])
-AC_ARG_VAR([NMGCTRANSBLK],[number of blocks for MGC transforms (default=3)])
+AC_ARG_VAR([NMGCTRANSBLK],[number of blocks for MGC transforms (default=4)])
 AC_ARG_VAR([NLF0TRANSBLK],[number of blocks for log F0 transforms (default=1)])
 AC_ARG_VAR([NBAPTRANSBLK],[number of blocks for band aperiodicity transforms (default=5)])
 AC_ARG_VAR([MGCBANDWIDTH],[band width for MGC transforms (default=24 for cepstral form, derault=2 for LSP form)])
@@ -543,7 +543,7 @@ if test -z "$MINDUR"; then
 fi
 
 if test -z "$NMGCTRANSBLK"; then
-	NMGCTRANSBLK=3
+	NMGCTRANSBLK=4
 fi
 
 if test -z "$NLF0TRANSBLK"; then
