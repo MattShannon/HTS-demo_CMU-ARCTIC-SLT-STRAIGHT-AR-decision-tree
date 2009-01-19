@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+set -u
+set -o pipefail
+
+num=$1
+factor=$2
+
+{
+	echo $((num * 2 + 1))
+	for i in `seq 1 $num`; do
+		echo "$factor ^ ($num - $i)" | bc -l
+	done
+	for i in `seq 0 $num`; do
+		echo "-1e10"
+	done
+} | tr '\n' ' ' | sed -r 's/ $/\n/'
