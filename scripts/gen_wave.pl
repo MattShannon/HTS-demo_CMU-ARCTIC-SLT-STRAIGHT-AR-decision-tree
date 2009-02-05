@@ -178,7 +178,7 @@ sub gen_wave($) {
                . "$MERGE -s 384 -l 384 -L 129 $gendir/$base.ap5 > $gendir/$base.ap";
          shell($line); 
          
-         printf SYN "fprintf(1,'Synthesizing %s');\n",   "$gendir/$base.wav";
+         printf SYN "fprintf(1,'\\nSynthesizing %s');\n",   "$gendir/$base.wav";
          printf SYN "fid1 = fopen('%s','r','%s');\n", "$gendir/$base.sp", $endian;
          printf SYN "fid2 = fopen('%s','r','%s');\n", "$gendir/$base.ap", $endian;
          printf SYN "fid3 = fopen('%s','r','%s');\n", "$gendir/$base.f0", $endian;
@@ -202,5 +202,5 @@ sub gen_wave($) {
    
    print "Synthesizing waveform from STRAIGHT parameters...\n";
    shell("$MATLAB < $datdir/scripts/synthesis.m");
-   print "done\n";
+   print "\ndone\n";
 }
