@@ -192,7 +192,7 @@ sub gen_wave($) {
          print  SYN  "fclose(fid3);\n";
 
          printf SYN "[sy] = exstraightsynth(f0,sp,ap,%d,prm);\n", $sr;
-         printf SYN "wavwrite( sy/max(abs(sy)), %d, '%s');\n\n",  $sr, "$gendir/$base.wav";
+         printf SYN "wavwrite( sy/max(abs(sy))*0.95, %d, '%s');\n\n",  $sr, "$gendir/$base.wav";
                   
          print "done\n";
       }
