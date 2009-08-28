@@ -230,16 +230,5 @@ $ERST4 = 1;  # embedded reestimation (re-clustered)
 $MKUN1 = 1;  # making unseen models (1mix)
 $PGEN1 = 1;  # generating speech parameter sequences (1mix)
 $WGEN1 = 1;  # synthesizing waveforms (1mix)
-$CONVM = 0;  # converting mmfs to the hts_engine file format
-$ENGIN = 0;  # synthesizing waveforms using hts_engine
-$UPMIX = 1;  # increasing the number of mixture components (1mix -> 2mix)
-$SEMIT = 1;  # semi-tied covariance matrices
-$MKUNS = 1;  # making unseen models (stc)
-$PGENS = 1;  # generating speech parameter sequences (stc)
-$WGENS = 1;  # synthesizing waveforms (stc)
-$ERST5 = 1;  # embedded reestimation (2mix)
-$MKUN2 = 1;  # making unseen models (2mix)
-$PGEN2 = 1;  # generating speech parameter sequences (2mix)
-$WGEN2 = 1;  # synthesizing waveforms (2mix)
 
 1;
