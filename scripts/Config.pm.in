@@ -78,6 +78,9 @@ $ref{'dur'} = \@dur;
          'bap' => 'cmp',
          'dur' => 'dur');
 
+%s2ae = ('cmp' => 'hmm.acc',  # set to accumulator file extension
+         'dur' => 'dur.acc');
+
 %strb = ('mgc' => '1',  # stream start
          'lf0' => '2',
          'bap' => '@BAPSTREN@',

@@ -74,13 +74,14 @@ $mlf{'ful'} = "$datdir/labels/full.mlf";
 # configuration variable files
 $cfg{'trn'} = "$prjdir/configs/trn.cnf";
 $cfg{'nvf'} = "$prjdir/configs/nvf.cnf";
+$cfg{'dump_accs'} = "$prjdir/configs/dump_accs.cnf";
 $cfg{'syn'} = "$prjdir/configs/syn.cnf";
 $cfg{'gv'}  = "$prjdir/configs/gv.cnf";
 
 # model topology definition file
 $prtfile = "$prjdir/proto/ver$ver/";
 
-# model files
+# model files and accumulator files
 foreach $set (@SET){
    $model{$set}   = "$prjdir/models/qst${qnum}/ver${ver}/${set}";
    $hinit{$set}   = "$model{$set}/HInit";
@@ -96,6 +97,8 @@ foreach $set (@SET){
    $tiedlst{$set} = "$model{$set}/tiedlist";
    $gvmmf{$set}   = "$model{$set}/gv.mmf";
    $gvlst{$set}   = "$model{$set}/gv.list";
+
+   $accs{$set}    = "$model{$set}/HER1.$s2ae{$set}";
 }
 
 # statistics files
@@ -342,7 +345,7 @@ if ($MN2FL) {
 if ($ERST1) {
    print_time("embedded reestimation (fullcontext)");
 
-   $opt = "-C $cfg{'nvf'} -s $stats{'cmp'} -w 0.0";
+   $opt = "-C $cfg{'nvf'} -C $cfg{'dump_accs'} -s $stats{'cmp'} -w 0.0";
 
    # embedded reestimation   
    print("\n\nEmbedded Re-estimation\n");
@@ -414,7 +417,7 @@ foreach $set (@SET) {
 if ($ERST3) {
    print_time("embedded reestimation (untied)");
 
-   $opt = "-C $cfg{'nvf'} -s $stats{'cmp'} -w 0.0";
+   $opt = "-C $cfg{'nvf'} -C $cfg{'dump_accs'} -s $stats{'cmp'} -w 0.0";
 
    print("\n\nEmbedded Re-estimation for untied mmfs\n");
    shell("$HERest{'ful'} -H $untymmf{'cmp'} -N $untymmf{'dur'} -M $model{'cmp'} -R $model{'dur'} $opt $lst{'ful'} $lst{'ful'}");
@@ -710,6 +713,11 @@ sub make_config {
    print CONF "APPLYDURVARFLOOR = F\n";
    close(CONF);
 
+   # config file to dump accumulators even in re-estimation mode
+   open(CONF,">$cfg{'dump_accs'}") || die "Cannot open $!";
+   print CONF "UPDATEMODE = BOTH\n";
+   close(CONF);
+
    # config file for parameter generation
    open(CONF,">$cfg{'syn'}") || die "Cannot open $!";
    print CONF "NATURALREADORDER = T\n";
@@ -774,6 +782,8 @@ sub make_edfile_state($){
    open(EDFILE,">$cxc{$set}") || die "Cannot open $!";
    print EDFILE "// load stats file\n";
    print EDFILE "RO $gam{$set} \"$stats{$set}\"\n";
+   print EDFILE "// load accumulator file\n";
+   print EDFILE "LA \"$accs{$set}\"\n\n";
    print EDFILE "TR 0\n\n";
    print EDFILE "// questions for decision tree-based context clustering\n";
    print EDFILE @lines;
