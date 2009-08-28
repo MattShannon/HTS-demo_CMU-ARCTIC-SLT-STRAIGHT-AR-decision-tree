@@ -61,24 +61,16 @@ $ref{'dur'} = \@dur;
          'bap' => '0.01',
          'dur' => '0.01');
 
-%thr  = ('mgc' => '000',  # minimum state occupancy 
-         'lf0' => '000',
-         'bap' => '000',
+%thr  = ('cmp' => '000',  # minimum state occupancy 
          'dur' => '000');
 
-%mdlf = ('mgc' => '1.0',  # tree size control param. for MDL
-         'lf0' => '1.0',
-         'bap' => '1.0',
+%mdlf = ('cmp' => '1.0',  # tree size control param. for MDL
          'dur' => '1.0');
 
-%mocc = ('mgc' => '10.0',  # minimum occupancy counts
-         'lf0' => '10.0',
-         'bap' => '10.0',
+%mocc = ('cmp' => '10.0',  # minimum occupancy counts
          'dur' => ' 5.0');
 
-%gam  = ('mgc' => '000',  # stats load threshold
-         'lf0' => '000',
-         'bap' => '000',
+%gam  = ('cmp' => '000',  # stats load threshold
          'dur' => '000');
 
 %t2s  = ('mgc' => 'cmp',  # feature type to mmf conversion

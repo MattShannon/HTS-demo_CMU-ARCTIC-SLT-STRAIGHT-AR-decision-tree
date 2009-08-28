@@ -111,25 +111,19 @@ foreach $set (@SET){
    $mku{$set} = "$hed{$set}/mku.hed";
    $unt{$set} = "$hed{$set}/unt.hed";
    $upm{$set} = "$hed{$set}/upm.hed";
-   foreach $type (@{$ref{$set}}) {
-      $cxc{$type} = "$hed{$set}/cxc_$type.hed";
-   }
+   $cxc{$set} = "$hed{$set}/cxc_$set.hed";
 }
 
 # questions about contexts
 foreach $set (@SET){
-   foreach $type (@{$ref{$set}}) {
-      $qs{$type} = "$datdir/questions/questions_qst${qnum}.hed";
-   }
+   $qs{$set} = "$datdir/questions/questions_qst${qnum}.hed";
 }
 
 # decision tree files
 foreach $set (@SET){
    $trd{$set} = "${prjdir}/trees/qst${qnum}/ver${ver}/${set}";
-   foreach $type (@{$ref{$set}}) {
-      $mdl{$type} = "-m -a $mdlf{$type}" if($thr{$type} eq '000');
-      $tre{$type} = "$trd{$set}/${type}.inf";
-   }
+   $mdl{$set} = "-m -a $mdlf{$set}" if($thr{$set} eq '000');
+   $tre{$set} = "$trd{$set}/${set}.inf";
 }
 
 # converted model & tree files for hts_engine
@@ -371,17 +365,12 @@ if ($CXCL1) {
       shell("cp $fullmmf{$set} $clusmmf{$set}");
 
       # tree-based clustering
-      $footer = "";
-      foreach $type (@{$ref{$set}}) {
-         if ($strw{$type}>0.0) {
-            $minocc = $mocc{$type};
-            make_config();
-            make_edfile_state($type);
-            shell("$HHEd{'trn'} -H $clusmmf{$set} $mdl{$type} -w $clusmmf{$set} $cxc{$type} $lst{'ful'}");
-            $footer .= "_$type";
-            shell("gzip -c $clusmmf{$set} > $clusmmf{$set}$footer.gz");
-         }
-      }
+      $minocc = $mocc{$set};
+      make_config();
+      make_edfile_state($set);
+      shell("$HHEd{'trn'} -H $clusmmf{$set} $mdl{$set} -w $clusmmf{$set} $cxc{$set} $lst{'ful'}");
+      $footer = "_after";
+      shell("gzip -c $clusmmf{$set} > $clusmmf{$set}$footer.gz");
    }
 }
 
@@ -416,10 +405,8 @@ if ($UNTIE) {
 # fix variables
 foreach $set (@SET) { 
    $stats{$set} .= ".untied";
-   foreach $type (@{$ref{$set}}) {
-      $tre{$type}   .= ".untied";
-      $cxc{$type}   .= ".untied";
-   }
+   $tre{$set}   .= ".untied";
+   $cxc{$set}   .= ".untied";
 }
 
 
@@ -444,16 +431,11 @@ if ($CXCL2) {
    foreach $set (@SET) {
       shell("cp $untymmf{$set} $reclmmf{$set}");
 
-      $footer = "";
-      foreach $type (@{$ref{$set}}) {
-         $minocc = $mocc{$type};
-         make_config();
-         make_edfile_state($type);
-         shell("$HHEd{'trn'} -H $reclmmf{$set} $mdl{$type} -w $reclmmf{$set} $cxc{$type} $lst{'ful'}");
+      $minocc = $mocc{$set};
+      make_config();
+      make_edfile_state($set);
+      shell("$HHEd{'trn'} -H $reclmmf{$set} $mdl{$set} -w $reclmmf{$set} $cxc{$set} $lst{'ful'}");
 
-         $footer .= "_$type";
-         shell("gzip -c $reclmmf{$set} > $reclmmf{$set}$footer.gz");
-      }
       shell("gzip -c $reclmmf{$set} > $reclmmf{$set}.noembedded.gz");
    }
 }
@@ -779,30 +761,34 @@ sub make_config {
 
 # sub routine for generating .hed files for decision-tree clustering
 sub make_edfile_state($){
-   my($type) = @_;
+   my($set) = @_;
    my(@lines,$i,@nstate);
 
    $nstate{'cmp'} = $nState;
    $nstate{'dur'} = 1;
 
-   open(QSFILE,"$qs{$type}") || die "Cannot open $!";
+   open(QSFILE,"$qs{$set}") || die "Cannot open $!";
    @lines = <QSFILE>;
    close(QSFILE);
 
-   open(EDFILE,">$cxc{$type}") || die "Cannot open $!";
+   open(EDFILE,">$cxc{$set}") || die "Cannot open $!";
    print EDFILE "// load stats file\n";
-   print EDFILE "RO $gam{$type} \"$stats{$t2s{$type}}\"\n\n";   
+   print EDFILE "RO $gam{$set} \"$stats{$set}\"\n";
    print EDFILE "TR 0\n\n";
    print EDFILE "// questions for decision tree-based context clustering\n";
    print EDFILE @lines;
    print EDFILE "TR 3\n\n";
    print EDFILE "// construct decision trees\n";
-   for ($i=2;$i<=$nstate{$t2s{$type}}+1;$i++){
-      print EDFILE "TB $thr{$type} ${type}_s${i}_ {*.state[${i}].stream[$strb{$type}-$stre{$type}]}\n";
+   foreach $type (@{$ref{$set}}) {
+      if ($strw{$type}>0.0) {
+         for ($i=2;$i<=$nstate{$t2s{$type}}+1;$i++){
+            print EDFILE "TB $thr{$t2s{$type}} ${type}_s${i}_ {*.state[${i}].stream[$strb{$type}-$stre{$type}]}\n";
+         }
+      }
    }
    print EDFILE "\nTR 1\n\n";
    print EDFILE "// output constructed trees\n";
-   print EDFILE "ST \"$tre{$type}\"\n";
+   print EDFILE "ST \"$tre{$set}\"\n";
    close(EDFILE);
 }
 
@@ -852,10 +838,8 @@ sub make_edfile_mkunseen($){
 
    open(EDFILE,">$mku{$set}") || die "Cannot open $!";
    print EDFILE "\nTR 2\n\n";
-   foreach $type (@{$ref{$set}}) {
-      print EDFILE "// load trees for $type\n";
-      print EDFILE "LT \"$tre{$type}\"\n\n";
-   }
+   print EDFILE "// load trees for $set\n";
+   print EDFILE "LT \"$tre{$set}\"\n\n";
 
    print EDFILE "// make unseen model\n";
    print EDFILE "AU \"$lst{'all'}\"\n\n";
