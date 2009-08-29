@@ -98,7 +98,7 @@ $ref{'dur'} = \@dur;
 
 %strw = ('mgc' => '1.0',  # stream weights
          'lf0' => '1.0',
-         'bap' => '0.0',
+         'bap' => '1.0',
          'dur' => '1.0');
 
 %ordr = ('mgc' => '@MGCVSIZE@',  # feature order  
