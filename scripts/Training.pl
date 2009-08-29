@@ -297,8 +297,19 @@ if ($ERST0) {
    
    for ($i=1;$i<=$nIte;$i++) {
       # embedded reestimation
-      print("\n\nIteration $i of Embedded Re-estimation\n");
-      shell("$HERest{'mon'} -H $monommf{'cmp'} -N $monommf{'dur'} -M $model{'cmp'} -R $model{'dur'} $lst{'mon'} $lst{'mon'}");
+      print("\n\nIteration $i of Embedded Re-estimation");
+      if ($i == 1) {
+         print(" (with cross training)\n");
+         if ($strb{'mgc'} ne $stre{'mgc'}) {
+            die "Auto-regressive cross training assumes mgc is only one stream wide\n";
+         }
+         $crossTrain = "-i $strb{'mgc'} $ordr{'mgc'}";
+      }
+      else {
+         print("\n");
+         $crossTrain = "";
+      }
+      shell("$HERest{'mon'} $crossTrain -H $monommf{'cmp'} -N $monommf{'dur'} -M $model{'cmp'} -R $model{'dur'} $lst{'mon'} $lst{'mon'}");
    }
 
    # compress reestimated model
