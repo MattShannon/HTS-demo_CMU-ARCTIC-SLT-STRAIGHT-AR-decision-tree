@@ -381,7 +381,7 @@ if ($CXCL1) {
       # tree-based clustering
       $minocc = $mocc{$set};
       make_config();
-      make_edfile_state($set);
+      make_edfile_state($set, 0);
       shell("$HHEd{'trn'} -H $clusmmf{$set} $mdl{$set} -w $clusmmf{$set} $cxc{$set} $lst{'ful'}");
       $footer = "_after";
       shell("gzip -c $clusmmf{$set} > $clusmmf{$set}$footer.gz");
@@ -447,7 +447,7 @@ if ($CXCL2) {
 
       $minocc = $mocc{$set};
       make_config();
-      make_edfile_state($set);
+      make_edfile_state($set, 1);
       shell("$HHEd{'trn'} -H $reclmmf{$set} $mdl{$set} -w $reclmmf{$set} $cxc{$set} $lst{'ful'}");
 
       shell("gzip -c $reclmmf{$set} > $reclmmf{$set}.noembedded.gz");
@@ -780,7 +780,7 @@ sub make_config {
 
 # sub routine for generating .hed files for decision-tree clustering
 sub make_edfile_state($){
-   my($set) = @_;
+   my($set, $final) = @_;
    my(@lines,$i,@nstate);
 
    $nstate{'cmp'} = $nState;
@@ -801,7 +801,7 @@ sub make_edfile_state($){
    print EDFILE "TR 3\n\n";
    print EDFILE "// construct decision trees\n";
    foreach $type (@{$ref{$set}}) {
-      if ($strw{$type}>0.0) {
+      if ($final == 1 || $strw{$type}>0.0) {
          for ($i=2;$i<=$nstate{$t2s{$type}}+1;$i++){
             print EDFILE "TB $thr{$t2s{$type}} ${type}_s${i}_ {*.state[${i}].stream[$strb{$type}-$stre{$type}]}\n";
          }
