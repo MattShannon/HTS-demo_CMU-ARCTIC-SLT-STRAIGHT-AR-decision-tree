@@ -61,7 +61,7 @@ $ref{'dur'} = \@dur;
          'bap' => '0.01',
          'dur' => '0.01');
 
-%thr  = ('cmp' => '000',  # minimum state occupancy 
+%thr  = ('cmp' => '000',  # clustering log likelihood threshold (000 for MDL)
          'dur' => '000');
 
 %mdlf = ('cmp' => '1.0',  # tree size control param. for MDL
