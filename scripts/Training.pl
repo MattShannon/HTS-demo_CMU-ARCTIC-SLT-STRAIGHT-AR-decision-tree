@@ -295,15 +295,22 @@ if ($MMMMF) {
 if ($ERST0) {
    print_time("embedded reestimation (monophone)");
    
-   for ($i=1;$i<=$nIte;$i++) {
+   for ($i=1;$i<=($nIte + 1);$i++) {
       # embedded reestimation
       print("\n\nIteration $i of Embedded Re-estimation");
       if ($i == 1) {
-         print(" (with cross training)\n");
+         print(" (with cross training for mgc)\n");
          if ($strb{'mgc'} ne $stre{'mgc'}) {
             die "Auto-regressive cross training assumes mgc is only one stream wide\n";
          }
          $crossTrain = "-i $strb{'mgc'} $ordr{'mgc'}";
+      }
+      elsif ($i == 2) {
+         print(" (with cross training for bap)\n");
+         if ($strb{'bap'} ne $stre{'bap'}) {
+            die "Auto-regressive cross training assumes bap is only one stream wide\n";
+         }
+         $crossTrain = "-i $strb{'bap'} $ordr{'bap'}";
       }
       else {
          print("\n");

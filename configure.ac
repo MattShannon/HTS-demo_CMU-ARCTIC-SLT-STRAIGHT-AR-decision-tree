@@ -481,7 +481,7 @@ AC_SUBST(MGCVSIZE)
 # parse command-line arguments
 AC_ARG_VAR([NMGCWIN],[number of delta windows for MGC coefficients (default=4)])
 AC_ARG_VAR([NLF0WIN],[number of delta windows for log F0 values (default=3)])
-AC_ARG_VAR([NBAPWIN],[number of delta windows for band aperiodicity values (default=3)])
+AC_ARG_VAR([NBAPWIN],[number of delta windows for band aperiodicity values (default=4)])
 
 # default values
 if test -z "$NMGCWIN"; then
@@ -493,7 +493,7 @@ if test -z "$NLF0WIN"; then
 fi
 
 if test -z "$NBAPWIN"; then
-	NBAPWIN=3
+	NBAPWIN=4
 fi
 
 F0STREN=`expr $NLF0WIN + 1`
@@ -517,7 +517,7 @@ AC_ARG_VAR([MAXDEV],[maximum duration scaling factor (default=10)])
 AC_ARG_VAR([MINDUR],[minimum duration to be evaluated (default=5)])
 AC_ARG_VAR([NMGCTRANSBLK],[number of blocks for MGC transforms (default=4)])
 AC_ARG_VAR([NLF0TRANSBLK],[number of blocks for log F0 transforms (default=1)])
-AC_ARG_VAR([NBAPTRANSBLK],[number of blocks for band aperiodicity transforms (default=5)])
+AC_ARG_VAR([NBAPTRANSBLK],[number of blocks for band aperiodicity transforms (default=4)])
 AC_ARG_VAR([MGCBANDWIDTH],[band width for MGC transforms (default=24 for cepstral form, derault=2 for LSP form)])
 AC_ARG_VAR([LF0BANDWIDTH],[band width for log F0 transforms (default=1)])
 
@@ -551,7 +551,7 @@ if test -z "$NLF0TRANSBLK"; then
 fi
 
 if test -z "$NBAPTRANSBLK"; then
-	NBAPTRANSBLK=3
+	NBAPTRANSBLK=4
 fi
 
 if test -z "$MGCBANDWIDTH"; then
