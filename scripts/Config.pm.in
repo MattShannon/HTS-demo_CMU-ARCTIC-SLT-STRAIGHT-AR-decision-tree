@@ -61,8 +61,13 @@ $ref{'dur'} = \@dur;
          'bap' => '0.01',
          'dur' => '0.01');
 
-%thr  = ('cmp' => '000',  # clustering log likelihood threshold (000 for MDL)
-         'dur' => '000');
+%applyMdl = ('cmp' => '1',  # apply MDL?
+             'dur' => '1');
+
+%thr  = ('mgc' => '0.0', # clustering log likelihood threshold
+         'lf0' => '0.0',
+         'bap' => '0.0',
+         'dur' => '0.0');
 
 %mdlf = ('cmp' => '1.0',  # tree size control param. for MDL
          'dur' => '1.0');

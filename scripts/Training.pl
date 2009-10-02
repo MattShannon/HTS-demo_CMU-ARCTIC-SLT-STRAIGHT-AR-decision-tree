@@ -125,7 +125,7 @@ foreach $set (@SET){
 # decision tree files
 foreach $set (@SET){
    $trd{$set} = "${prjdir}/trees/qst${qnum}/ver${ver}/${set}";
-   $mdl{$set} = "-m -a $mdlf{$set}" if($thr{$set} eq '000');
+   $mdl{$set} = "-m -a $mdlf{$set}" if($applyMdl{$set} eq '1');
    $tre{$set} = "$trd{$set}/${set}.inf";
 }
 
@@ -711,6 +711,7 @@ sub make_config {
    print CONF "NATURALREADORDER = T\n";
    print CONF "NATURALWRITEORDER = T\n";
    print CONF "MINLEAFOCC = $minocc\n";
+   print CONF "TREEMERGE = F\n";
    print CONF "VFLOORSCALESTR = \"Vector $nstream{'total'}";
    foreach $type (@cmp) {
       for ($s=$strb{$type}; $s<=$stre{$type}; $s++) {
@@ -810,7 +811,7 @@ sub make_edfile_state($){
    foreach $type (@{$ref{$set}}) {
       if ($final == 1 || $strw{$type}>0.0) {
          for ($i=2;$i<=$nstate{$t2s{$type}}+1;$i++){
-            print EDFILE "TB $thr{$t2s{$type}} ${type}_s${i}_ {*.state[${i}].stream[$strb{$type}-$stre{$type}]}\n";
+            print EDFILE "TB $thr{$type} ${type}_s${i}_ {*.state[${i}].stream[$strb{$type}-$stre{$type}]}\n";
          }
       }
    }
