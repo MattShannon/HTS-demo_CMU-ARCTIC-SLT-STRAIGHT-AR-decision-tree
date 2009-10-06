@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+set -u
+set -o pipefail
+
+maxDepth="$1"
+# (e.g. mgc, lf0, bap)
+typeId="$2"
+
+rm -f "data/win/$typeId.win"*
+
+for k in `seq 0 "$maxDepth"`; do
+	{
+		n=$(( 2 * $k + 1 ))
+		echo -n "$n 1.0"
+		for i in `seq 2 $n`; do
+			echo -n " -1e10"
+		done
+		echo
+	} > "data/win/$typeId.win$(( $k + 1 ))"
+done
