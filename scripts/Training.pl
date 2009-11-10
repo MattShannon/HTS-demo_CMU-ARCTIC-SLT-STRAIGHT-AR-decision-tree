@@ -373,10 +373,11 @@ if ($ERST1) {
    foreach $set (@SET) {
       shell("gzip -c $fullmmf{$set} > ${fullmmf{$set}}.embedded.gz");
    }
+
+   # convert cmp stats to duration ones
+   convstats();
 }
 
-# convert cmp stats to duration ones
-convstats();
 
 # HHEd (tree-based context clustering)
 if ($CXCL1) {
@@ -439,10 +440,11 @@ if ($ERST3) {
 
    print("\n\nEmbedded Re-estimation for untied mmfs\n");
    shell("$HERest{'ful'} -H $untymmf{'cmp'} -N $untymmf{'dur'} -M $model{'cmp'} -R $model{'dur'} $opt $lst{'ful'} $lst{'ful'}");
+
+   # convert cmp stats to duration ones
+   convstats();
 }
 
-# convert cmp stats to duration ones
-convstats();
 
 # HHEd (tree-based context clustering)
 if ($CXCL2) {
