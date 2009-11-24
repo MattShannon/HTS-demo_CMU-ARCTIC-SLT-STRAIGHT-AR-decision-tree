@@ -180,6 +180,10 @@ $minocc = 0.0;
 # ===================== Main Program ==========================
 # =============================================================
 
+# make config files
+mkdir "$prjdir/configs",0755;
+make_config();
+
 # preparing environments
 if ($MKEMV) {
    print_time("preparing environments");
@@ -197,10 +201,6 @@ if ($MKEMV) {
       mkdir "$hed{$set}", 0755;
       mkdir "$trd{$set}", 0755;
    }
-
-   # make config files 
-   mkdir "$prjdir/configs",0755;
-   make_config();
 
    # make model prototype definition file;
    mkdir "$prjdir/proto",0755;
