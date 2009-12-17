@@ -53,6 +53,11 @@
 ;;
 ;;  The last three will act on any item
 
+(require 'radio_phones)
+(Parameter.set 'Language 'americanenglish)
+(Parameter.set 'PhoneSet 'radio)
+(PhoneSet.select 'radio)
+
 (define (distance_to_p_content i)
   (let ((c 0) (rc 0 ) (w (item.relation.prev i "Phrase")))
     (while w
