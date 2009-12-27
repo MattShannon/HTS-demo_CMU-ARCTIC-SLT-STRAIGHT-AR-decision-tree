@@ -356,7 +356,7 @@ list:
 
 scp:
 	mkdir -p scp
-	# Generating a trainig data script
+	# Generating a training data script
 	rm -f scp/train.scp
 	for cmp in @PWD@/data/cmp/$(DATASET)_$(SPEAKER)_*.cmp; do \
 		if [ -s $${cmp} -a -s labels/mono/`basename $${cmp} .cmp`.lab -a -s labels/full/`basename $${cmp} .cmp`.lab ]; then \
