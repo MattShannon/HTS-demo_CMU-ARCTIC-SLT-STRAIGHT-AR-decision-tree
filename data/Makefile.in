@@ -204,7 +204,7 @@ bap:
 	rm -f bap{1,2,3,4,5}
 
 cmp: 
-	# Composing training data files from mgc and lf0 files
+	# Composing training data files from mgc and lf0 and bap files
 	mkdir -p cmp
 	for j in 1; do \
 		MGCDIM=`expr $(MGCORDER) + 1`; \
@@ -370,7 +370,7 @@ scp:
 	done
 
 
-clean: clean-straight clean-mgc clean-lf0 clean-cmp clean-gv clean-label clean-mlf clean-list clean-scp
+clean: clean-straight clean-mgc clean-lf0 clean-bap clean-cmp clean-gv clean-label clean-mlf clean-list clean-scp
 
 clean-straight: clean-sp clean-f0 clean-ap
 
@@ -388,6 +388,9 @@ clean-mgc:
 
 clean-lf0:
 	rm -rf lf0
+
+clean-bap:
+	rm -rf bap
 
 clean-cmp:
 	rm -rf cmp
