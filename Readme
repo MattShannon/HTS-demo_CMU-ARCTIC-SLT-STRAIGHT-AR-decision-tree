@@ -3,7 +3,7 @@ Steps to make a working copy:
 1. copy boring.darcs into _darcs/prefs/boring
 2. run autoconf to generate configure
 3. run configure with appropriate params
-4. replace data/raw and data/utts with appropriate symlinks
+4. add appropriate symlinks for data/raw and data/utts
 5. make appropriate things executable:
     - scripts/*.pl
     - scripts/<bash scripts>
