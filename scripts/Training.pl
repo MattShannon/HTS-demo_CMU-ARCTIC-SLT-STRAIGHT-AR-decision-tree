@@ -498,7 +498,7 @@ if ($PGEN1) {
    $mix = '1mix';
    
    mkdir "${prjdir}/gen/qst${qnum}/ver${ver}/$mix", 0755;
-   for ($pgtype=0; $pgtype<=2; $pgtype++) {
+   for ($pgtype=0; $pgtype<=0; $pgtype++) {
       # prepare output directory 
       $dir = "${prjdir}/gen/qst${qnum}/ver${ver}/$mix/$pgtype";
       mkdir $dir, 0755; 
@@ -516,7 +516,7 @@ if ($WGEN1) {
    $mix = '1mix';
 
    mkdir "${prjdir}/gen/qst${qnum}/ver${ver}/$mix", 0755;
-   for ($pgtype=0; $pgtype<=2; $pgtype++) { 
+   for ($pgtype=0; $pgtype<=0; $pgtype++) {
       gen_wave("${prjdir}/gen/qst${qnum}/ver${ver}/$mix/$pgtype");
    }
 }
