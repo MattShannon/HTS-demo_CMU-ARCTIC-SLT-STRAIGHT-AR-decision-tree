@@ -1,0 +1,9 @@
+
+./scripts/clean-dur
+
+./scripts/gen-exponential-window
+
+./scripts/*.pl
+
+./testgen/gensyn*
+
