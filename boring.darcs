@@ -1,4 +1,6 @@
 
+^darcs_testing_for_nfs$
+
 (^|/)Makefile$
 
 (^|/)configure$
