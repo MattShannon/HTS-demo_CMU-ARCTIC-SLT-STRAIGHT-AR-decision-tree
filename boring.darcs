@@ -49,13 +49,13 @@
 
 ^data/labels/(mono|full)(|\.mlf)$
 
-^data/scripts/synthesis.m$
+^data/scripts/synthesis\.m$
 
 ^log$
 
-^log.make$
+^log\.make$
 
-^scripts/Config.pm$
+^scripts/Config\.pm$
 
 ^testgen/results\.
 
