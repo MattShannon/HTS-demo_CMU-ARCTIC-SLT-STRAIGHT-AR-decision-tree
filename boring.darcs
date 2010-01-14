@@ -3,6 +3,8 @@
 
 (^|/)configure$
 
+(^|/)config\.status$
+
 (^|/)configs($|/)
 
 (^|/)edfiles($|/)

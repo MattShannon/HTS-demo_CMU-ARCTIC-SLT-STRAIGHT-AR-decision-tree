@@ -1,7 +1,5 @@
 Steps to make a working copy:
 
-- copy boring.darcs into _darcs/prefs/boring
-
 - run autoconf to generate configure
 
 - run configure with appropriate params
