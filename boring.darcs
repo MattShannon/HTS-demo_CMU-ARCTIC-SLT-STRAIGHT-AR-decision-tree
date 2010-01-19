@@ -49,7 +49,7 @@
 
 (^|/)data/wav($|/)
 
-^data/labels/(mono|full)(|\.mlf)$
+^data/labels/(mono|full|test)(|\.mlf)$
 
 ^data/scripts/synthesis\.m$
 

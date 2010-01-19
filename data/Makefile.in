@@ -95,9 +95,9 @@ all: corpus analysis labels
 
 analysis: straight mgc lf0 bap cmp gv
 
-labels: label mlf list scp
+labels: label labels-test mlf list scp
 
-corpus: corpus-train.lst
+corpus: corpus-train.lst corpus-test.lst
 
 straight:
 	# Extracting f0, aperiodicity, and spectra using STRAIGHT
@@ -313,12 +313,21 @@ label:
 	done
 	rm -f tmp
 
+labels-test:
+	mkdir -p labels/test
+	# Preparing test set label files
+	cat corpus-test.lst | while read base; do \
+		cat labels/full/$${base}.lab | awk '{print $$NF}' > labels/test/$${base}.lab; \
+	done
+
 mlf:
 	# Generating monophone and fullcontext Master Label Files (MLF)
 	echo "#!MLF!#" > labels/mono.mlf
 	echo "\"*/$(DATASET)_$(SPEAKER)_*.lab\" -> \"@PWD@/data/labels/mono\"" >> labels/mono.mlf
 	echo "#!MLF!#" > labels/full.mlf
 	echo "\"*/$(DATASET)_$(SPEAKER)_*.lab\" -> \"@PWD@/data/labels/full\"" >> labels/full.mlf
+	echo "#!MLF!#" > labels/test.mlf
+	echo "\"*/$(DATASET)_$(SPEAKER)_*.lab\" -> \"@PWD@/data/labels/test\"" >> labels/test.mlf
 
 list:
 	mkdir -p lists
@@ -333,6 +342,10 @@ list:
 	# Generating a fullcontext model list including unseen models 
 	rm -f tmp
 	cat lists/full.list > tmp
+	cat corpus-test.lst | while read base; do \
+		lab=labels/test/$${base}.lab; \
+		sed -e "s/.* //g" $${lab} >> tmp; \
+	done
 	for lab in labels/gen/*.lab; do \
 		sed -e "s/.* //g" $${lab} >> tmp; \
 	done
@@ -355,15 +368,24 @@ scp:
 	cat corpus-train.lst | while read base; do \
 		echo @PWD@/data/cmp/$${base}.cmp >> scp/train.scp; \
 	done
+	# Generating a test data script
+	rm -f scp/test.scp
+	touch scp/test.scp
+	cat corpus-test.lst | while read base; do \
+		echo @PWD@/data/cmp/$${base}.cmp >> scp/test.scp; \
+	done
 	# Generating a generation label script
 	rm -f scp/gen.scp
 	touch scp/gen.scp
+	cat corpus-test.lst | while read base; do \
+		echo @PWD@/data/labels/test/$${base}.lab >> scp/gen.scp; \
+	done
 	for lab in @PWD@/data/labels/gen/*.lab; do \
 		echo $${lab} >> scp/gen.scp; \
 	done
 
 
-clean: clean-straight clean-mgc clean-lf0 clean-bap clean-cmp clean-gv clean-label clean-mlf clean-list clean-scp
+clean: clean-straight clean-mgc clean-lf0 clean-bap clean-cmp clean-gv clean-label clean-labels-test clean-mlf clean-list clean-scp
 
 clean-straight: clean-sp clean-f0 clean-ap
 
@@ -395,6 +417,9 @@ clean-label:
 	rm -rf labels/mono
 	rm -rf labels/full
 
+clean-labels-test:
+	rm -rf labels/test
+
 clean-mlf:
 	rm -f labels/*.mlf
 
@@ -407,4 +432,4 @@ clean-scp:
 distclean: clean
 	rm -f Makefile
 
-.PHONY: all analysis labels mgc lf0 bap f0 sp ap cmp gv label mlf list scp clean 
+.PHONY: all analysis labels mgc lf0 bap f0 sp ap cmp gv label labels-test mlf list scp clean 
