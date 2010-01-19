@@ -91,11 +91,13 @@ NMGCWIN     = @NMGCWIN@
 NLF0WIN     = @NLF0WIN@
 NBAPWIN     = @NBAPWIN@
 
-all: analysis labels
+all: corpus analysis labels
 
 analysis: straight mgc lf0 bap cmp gv
 
 labels: label mlf list scp
+
+corpus: corpus-train.lst
 
 straight:
 	# Extracting f0, aperiodicity, and spectra using STRAIGHT
@@ -252,17 +254,10 @@ gv:
 	mkdir -p gv
 	rm -f gvdata_mgc gvdata_lf0 gvdata_bap
 	# generating GV data
-	for raw in raw/$(DATASET)_$(SPEAKER)_*.raw; do \
-		base=`basename $${raw} .raw`; \
-		if [ -s mgc/$${base}.mgc ]; then \
-			$(VSTAT) -n $(MGCORDER) -o 2 -d mgc/$${base}.mgc >> gvdata_mgc; \
-		fi; \
-		if [ -s lf0/$${base}.lf0 ]; then \
-			$(X2X) +fa lf0/$${base}.lf0 | grep -v '\-1e+10' | $(X2X) +af | $(VSTAT) -l 1 -o 2 -d >> gvdata_lf0; \
-		fi; \
-		if [ -s bap/$${base}.bap ]; then \
-			$(VSTAT) -l 5 -o 2 -d bap/$${base}.bap >> gvdata_bap; \
-		fi; \
+	cat corpus-train.lst | while read base; do \
+		$(VSTAT) -n $(MGCORDER) -o 2 -d mgc/$${base}.mgc >> gvdata_mgc; \
+		$(X2X) +fa lf0/$${base}.lf0 | grep -v '\-1e+10' | $(X2X) +af | $(VSTAT) -l 1 -o 2 -d >> gvdata_lf0; \
+		$(VSTAT) -l 5 -o 2 -d bap/$${base}.bap >> gvdata_bap; \
 	done
 	# calculating GV pdfs
 	$(VSTAT) -n $(MGCORDER) -o 0 -d gvdata_mgc > gv/gv-mgc.pdf
@@ -304,8 +299,8 @@ label:
 	mkdir -p labels/mono
 	mkdir -p labels/full
 	# Extracting monophone and fullcontext labels from utterance files
-	for utt in utts/$(DATASET)_$(SPEAKER)_*.utt; do \
-		base=`basename $${utt} .utt`; \
+	cat corpus-train.lst | while read base; do \
+		utt=utts/$${base}.utt; \
 		if [ -s $${utt} ]; then \
 			$(DUMPFEATS)    -eval     scripts/extra_feats.scm \
 					-relation Segment \
@@ -329,10 +324,9 @@ list:
 	mkdir -p lists
 	# Generating a fullcntext model list occurred in the training data
 	rm -f tmp
-	for lab in labels/full/$(DATASET)_$(SPEAKER)_*.lab; do \
-		if [ -s $${lab} -a -s labels/mono/`basename $${lab}` -a -s cmp/`basename $${lab} .lab`.cmp ]; then \
-			sed -e "s/.* //g" $${lab} >> tmp; \
-		fi \
+	cat corpus-train.lst | while read base; do \
+		lab=labels/full/$${base}.lab; \
+		sed -e "s/.* //g" $${lab} >> tmp; \
 	done
 	sort -u tmp > lists/full.list
 	rm -f tmp
@@ -346,10 +340,9 @@ list:
 	rm -f tmp
 	# Generating a monophone list 
 	rm -f tmp
-	for lab in labels/mono/$(DATASET)_$(SPEAKER)_*.lab; do \
-		if [ -s $${lab} -a -s labels/full/`basename $${lab}` -a -s cmp/`basename $${lab} .lab`.cmp ]; then \
-			sed -e "s/.* //g" $${lab} >> tmp; \
-		fi \
+	cat corpus-train.lst | while read base; do \
+		lab=labels/mono/$${base}.lab; \
+		sed -e "s/.* //g" $${lab} >> tmp; \
 	done
 	sort -u tmp > lists/mono.list
 	rm -f tmp
@@ -358,13 +351,13 @@ scp:
 	mkdir -p scp
 	# Generating a training data script
 	rm -f scp/train.scp
-	for cmp in @PWD@/data/cmp/$(DATASET)_$(SPEAKER)_*.cmp; do \
-		if [ -s $${cmp} -a -s labels/mono/`basename $${cmp} .cmp`.lab -a -s labels/full/`basename $${cmp} .cmp`.lab ]; then \
-			echo $${cmp} >> scp/train.scp; \
-		fi \
+	touch scp/train.scp
+	cat corpus-train.lst | while read base; do \
+		echo @PWD@/data/cmp/$${base}.cmp >> scp/train.scp; \
 	done
 	# Generating a generation label script
 	rm -f scp/gen.scp
+	touch scp/gen.scp
 	for lab in @PWD@/data/labels/gen/*.lab; do \
 		echo $${lab} >> scp/gen.scp; \
 	done
