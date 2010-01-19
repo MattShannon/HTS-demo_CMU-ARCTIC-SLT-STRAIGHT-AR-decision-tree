@@ -526,6 +526,21 @@ if ($WGEN1) {
 }
 
 
+# HERest (computing log prob on test set (1mix))
+if ($LTST1) {
+   print_time("computing log prob on test set (1mix)");
+
+   $mix = '1mix';
+
+   if (-s $scp{'tst'}) {
+      shell("$HERest{'tst'} -H $rclammf{'cmp'}.$mix -N $rclammf{'dur'}.$mix -M /dev/null -R /dev/null $tiedlst{'cmp'} $tiedlst{'dur'}");
+   }
+   else {
+      print("(skipping since test set is empty)\n\n");
+   }
+}
+
+
 # sub routines ============================
 sub shell($) {
    my($command) = @_;

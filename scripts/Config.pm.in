@@ -231,5 +231,6 @@ $ERST4 = 1;  # embedded reestimation (re-clustered)
 $MKUN1 = 1;  # making unseen models (1mix)
 $PGEN1 = 1;  # generating speech parameter sequences (1mix)
 $WGEN1 = 1;  # synthesizing waveforms (1mix)
+$LTST1 = 1;  # computing log prob on test set (1mix)
 
 1;
