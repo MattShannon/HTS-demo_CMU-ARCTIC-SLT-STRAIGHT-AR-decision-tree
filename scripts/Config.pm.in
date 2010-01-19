@@ -156,6 +156,7 @@ $co = 2047;    # order of cepstrum to approximate mel-generalized cepstrum
 $nState = @NSTATE@;                # number of states
 $nIte   = @NITER@;                # number of iterations for embedded training 
 $beam   = '1500 100 5000';  # initial, inc, and upper limit of beam width
+$beamTest = '5000 500 9000'; # beam for test set log prob computation
 $maxdev = @MAXDEV@;                # max standard dev coef to control HSMM maximum duration
 $mindur = @MINDUR@;                # min state duration to be evaluated  
 $wf     = @WFLOOR@;                # mixture weight flooring

@@ -60,6 +60,7 @@ $datdir = "$prjdir/data";
 
 # data location file 
 $scp{'trn'} = "$datdir/scp/train.scp";
+$scp{'tst'} = "$datdir/scp/test.scp";
 $scp{'gen'} = "$datdir/scp/gen.scp";
 
 # model list files
@@ -70,9 +71,11 @@ $lst{'all'} = "$datdir/lists/full_all.list";
 # master label files
 $mlf{'mon'} = "$datdir/labels/mono.mlf";
 $mlf{'ful'} = "$datdir/labels/full.mlf";
+$mlf{'tst'} = "$datdir/labels/test.mlf";
 
 # configuration variable files
 $cfg{'trn'} = "$prjdir/configs/trn.cnf";
+$cfg{'tst'} = "$prjdir/configs/tst.cnf";
 $cfg{'nvf'} = "$prjdir/configs/nvf.cnf";
 $cfg{'dump_accs'} = "$prjdir/configs/dump_accs.cnf";
 $cfg{'syn'} = "$prjdir/configs/syn.cnf";
@@ -168,6 +171,7 @@ foreach $type (@cmp) {
 $HCompV         = "$HCOMPV -A    -C $cfg{'trn'} -D -T 1 -S $scp{'trn'}";
 $HInit          = "$HINIT  -A    -C $cfg{'trn'} -D -T 1 -S $scp{'trn'}                -m 1 -u tmvw    -w $wf";
 $HRest          = "$HREST  -A    -C $cfg{'trn'} -D -T 1 -S $scp{'trn'}                -m 1 -u tmvw    -w $wf";
+$HERest{'tst'}  = "$HEREST -A -B -C $cfg{'tst'} -D -T 1 -S $scp{'tst'} -I $mlf{'tst'} -u d -t $beamTest ";
 $HERest{'mon'}  = "$HEREST -A    -C $cfg{'trn'} -D -T 1 -S $scp{'trn'} -I $mlf{'mon'} -m 1 -u tmvwdmv -w $wf -t $beam ";
 $HERest{'ful'}  = "$HEREST -A -B -C $cfg{'trn'} -D -T 1 -S $scp{'trn'} -I $mlf{'ful'} -m 1 -u tmvwdmv -w $wf -t $beam ";
 $HHEd{'trn'}    = "$HHED   -A -B -C $cfg{'trn'} -D -T 3 -p -i";
@@ -728,6 +732,14 @@ sub make_config {
    print CONF "APPLYDURVARFLOOR = T\n";
    print CONF "MAXSTDDEVCOEF = $maxdev\n";
    print CONF "MINDUR = $mindur\n";
+   close(CONF);
+
+   open(CONF,">$cfg{'tst'}") || die "Cannot open $!";
+   print CONF "NATURALREADORDER = T\n";
+   print CONF "NATURALWRITEORDER = T\n";
+   print CONF "MAXSTDDEVCOEF = $maxdev\n";
+   print CONF "MINDUR = $mindur\n";
+   print CONF "UPDATEMODE = NONE\n";
    close(CONF);
 
    # config file for model training (without variance flooring)
