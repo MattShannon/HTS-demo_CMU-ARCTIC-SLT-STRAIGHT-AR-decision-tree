@@ -389,6 +389,7 @@ if ($CXCL1) {
       make_config();
       make_edfile_state($set, 0);
       shell("$HHEd{'trn'} -H $clusmmf{$set} $mdl{$set} -w $clusmmf{$set} $cxc{$set} $lst{'ful'}");
+      shell("rm -f $accs{$set}");
       $footer = "_after";
       shell("gzip -c $clusmmf{$set} > $clusmmf{$set}$footer.gz");
    }
@@ -456,6 +457,7 @@ if ($CXCL2) {
       make_config();
       make_edfile_state($set, 1);
       shell("$HHEd{'trn'} -H $reclmmf{$set} $mdl{$set} -w $reclmmf{$set} $cxc{$set} $lst{'ful'}");
+      shell("rm -f $accs{$set}");
 
       shell("gzip -c $reclmmf{$set} > $reclmmf{$set}.noembedded.gz");
    }
