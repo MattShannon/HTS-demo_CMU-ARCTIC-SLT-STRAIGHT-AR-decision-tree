@@ -358,7 +358,6 @@ if ($MN2FL) {
       close(EDFILE);
 
       shell("$HHEd{'trn'} -H $monommf{$set} -w $fullmmf{$set} $m2f{$set} $lst{'mon'}");
-      shell("gzip -c $fullmmf{$set} > $fullmmf{$set}.nonembedded.gz");
    }
 }
 
@@ -372,11 +371,6 @@ if ($ERST1) {
    # embedded reestimation   
    print("\n\nEmbedded Re-estimation\n");
    shell("$HERest{'ful'} -H $fullmmf{'cmp'} -N $fullmmf{'dur'} -M $model{'cmp'} -R $model{'dur'} $opt $lst{'ful'} $lst{'ful'}");
-   
-   # compress reestimated model
-   foreach $set (@SET) {
-      shell("gzip -c $fullmmf{$set} > ${fullmmf{$set}}.embedded.gz");
-   }
 
    # convert cmp stats to duration ones
    convstats();
@@ -388,7 +382,7 @@ if ($CXCL1) {
    print_time("tree-based context clustering");
 
    foreach $set (@SET) {
-      shell("cp $fullmmf{$set} $clusmmf{$set}");
+      shell("mv $fullmmf{$set} $clusmmf{$set}");
 
       # tree-based clustering
       $minocc = $mocc{$set};
@@ -456,7 +450,7 @@ if ($CXCL2) {
 
    # tree-based clustering
    foreach $set (@SET) {
-      shell("cp $untymmf{$set} $reclmmf{$set}");
+      shell("mv $untymmf{$set} $reclmmf{$set}");
 
       $minocc = $mocc{$set};
       make_config();
