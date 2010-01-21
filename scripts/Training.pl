@@ -1146,6 +1146,13 @@ sub gen_wave($) {
    print "Synthesizing waveform from STRAIGHT parameters...\n";
    shell("$MATLAB < $datdir/scripts/synthesis.m");
    print "done\n";
+
+   # clean-up temporary files
+   foreach $file (@FILE) {
+      $base = `basename $file .mgc`;
+      chomp($base);
+      shell("rm -f $gendir/$base.sp $gendir/$base.f0 $gendir/$base.ap $gendir/$base.ap\[12345\]");
+   }
 }
 
 ##################################################################################################
