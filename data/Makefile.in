@@ -117,7 +117,7 @@ straight:
 		sp=sp/$${base}.sp; \
 		echo -n "Converting $${raw} to $${wav} and generating MATLAB script..."; \
 		$(SOX) -c 1 -e signed-integer -b 16 -t raw -r $(SAMPFREQ) $${raw} -c 1 -e signed-integer -b 16 -t wav -r $(SAMPFREQ) $${wav}; \
-		echo "fprintf(1,'Processing $${wav}\n');"     >> scripts/extract.m; \
+		echo "fprintf(1,'Processing $${wav}\\\\n');"     >> scripts/extract.m; \
 		echo "[x,fs]=wavread('$${wav}');"             >> scripts/extract.m; \
 		echo "[f0, ap] = exstraightsource(x,fs,prm);" >> scripts/extract.m; \
 		echo "[sp] = exstraightspec(x, f0, fs, prm);" >> scripts/extract.m; \
