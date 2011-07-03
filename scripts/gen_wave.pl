@@ -1,5 +1,13 @@
 #!/usr/bin/perl
 
+# Copyright 2011 Matt Shannon
+# Copyright 2001-2008 Nagoya Institute of Technology, Department of Computer Science
+# Copyright 2001-2008 Tokyo Institute of Technology, Interdisciplinary Graduate School of Science and Engineering
+
+# This file is part of HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree.
+# See `License` for details of license and warranty.
+
+
 $|=1;
 
 if (@ARGV != 2) {

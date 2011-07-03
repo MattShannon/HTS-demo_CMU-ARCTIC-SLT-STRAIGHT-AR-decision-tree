@@ -1,4 +1,11 @@
 #!/bin/bash
+
+# Copyright 2011 Matt Shannon
+
+# This file is part of HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree.
+# See `License` for details of license and warranty.
+
+
 set -e
 set -u
 set -o pipefail
