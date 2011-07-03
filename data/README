@@ -34,6 +34,7 @@ win: windows coefficients to calculate dynamic features (ascii).
 
 Acknowledgment
 
-This demonstration uses a part of the CMU ARCTIC database.
-See COPYING for copyright of this database.
-If you want to know its detail, please visit <http://festvox.org/cmu_arctic/index.html>.
+This demonstration uses part of the CMU ARCTIC database, which is covered by the following copyrights:
+    Copyright 2003 Carnegie Mellon University
+
+See `License` for details of license and warranty.

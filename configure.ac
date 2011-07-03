@@ -1,5 +1,6 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(HTS-demo_CMU-ARCTIC-SLT,2.1,hts-users@sp.nitech.ac.jp)
+AC_INIT(HTS-demo_CMU-ARCTIC-SLT+STRAIGHT-AR-decision-tree,2.1,matt.shannon@cantab.net)
+AC_COPYRIGHT(Copyright 2011 Matt Shannon)
 AC_COPYRIGHT(Copyright 2001-2008 Nagoya Institute of Technology)
 AC_COPYRIGHT(Copyright 2001-2008 Tokyo Institute of Technology)
 
