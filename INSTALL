@@ -59,7 +59,7 @@
    % make
 
    After composing training data, HMMs are estimated and speech waveforms are synthesized.
-   It takes about 12 to 24 hours :-)
+   It takes a while!
 
 
 5. Optionally, make stuff in exec.darcs executable by running something like:
