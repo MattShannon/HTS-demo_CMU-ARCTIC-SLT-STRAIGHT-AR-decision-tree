@@ -1,8 +1,8 @@
 
-* Installation of HTS-demo_CMU-ARCTIC-SLT+STRAIGHT-AR-decision-tree
+* Installation of HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree
 ===================================================================
 
-1. HTS-demo_CMU-ARCTIC-SLT+STRAIGHT-AR-decision-tree requires Festival, SPTK-3.2, HTS-2.1, hts_engine_API-1.0, STRAIGHT, and MATLAB.
+1. HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree requires Festival, SPTK-3.2, HTS-2.1, hts_engine_API-1.0, STRAIGHT, and MATLAB.
    Please install them before running this demo.
    You can download part of them from the following websites:
 
@@ -17,11 +17,11 @@
 
 2. Run autoconf to generate configure.
 
-   % cd HTS-demo_CMU-ARCTIC-SLT+STRAIGHT-AR-decision-tree
+   % cd HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree
    % autoconf
 
 
-3. Setup HTS-demo_CMU-ARCTIC-SLT+STRAIGHT-AR-decision-tree by running configure script:
+3. Setup HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree by running configure script:
 
    % ./configure --with-matlab-search-path=/usr/local/matlab/bin \
                  --with-straight-path=/home/zen/work/STRAIGHTV40 \
@@ -55,7 +55,7 @@
 
 4. Start running demonstration as follows:
 
-   % cd HTS-demo_CMU-ARCTIC-SLT+STRAIGHT-AR-decision-tree
+   % cd HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree
    % make
 
    After composing training data, HMMs are estimated and speech waveforms are synthesized.

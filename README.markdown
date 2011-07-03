@@ -1,4 +1,4 @@
-HTS-demo_CMU-ARCTIC-SLT+STRAIGHT-AR-decision-tree
+HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree
 =================================================
 
 This software is an autoregressive HMM version of the [HTS demo][hts_demo],
@@ -13,24 +13,24 @@ and autoregressive clustering.
 Set-up
 ------
 
-[HTS-demo_CMU-ARCTIC-SLT+STRAIGHT-AR-decision-tree](https://github.com/MattShannon/HTS-demo_CMU-ARCTIC-SLT+STRAIGHT-AR-decision-tree) is hosted on github.
+[HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree](https://github.com/MattShannon/HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree) is hosted on github.
 To obtain the latest source code using git:
 
-    git clone git://github.com/MattShannon/HTS-demo_CMU-ARCTIC-SLT+STRAIGHT-AR-decision-tree.git
+    git clone git://github.com/MattShannon/HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree.git
 
 To set-up this directory, please follow the instructions in `INSTALL`.
 
 
 License
 -------
-Please see the file `License` for details of the license and warranty for HTS-demo_CMU-ARCTIC-SLT+STRAIGHT-AR-decision-tree.
+Please see the file `License` for details of the license and warranty for HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree.
 
 
 Bugs
 ----
 
 Please use the
-[issue tracker](https://github.com/MattShannon/HTS-demo_CMU-ARCTIC-SLT+STRAIGHT-AR-decision-tree/issues)
+[issue tracker](https://github.com/MattShannon/HTS-demo_CMU-ARCTIC-SLT-STRAIGHT-AR-decision-tree/issues)
 to submit bug reports.
 
 
